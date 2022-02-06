@@ -37,14 +37,13 @@ export const destroy = ({  user, params }, res, next) =>
   Campaign.findById(params.id)
     .then(notFound(res))
     .then(authorOrAdmin(res, user, 'author'))
-    .then((campaign) => campaign ? test(campaign) : null)
+    .then((campaign) => campaign ? deleteDependencies(campaign) : null)
     .then(success(res, 204))
     .catch(next)
 
 
-function test(campaign) {
-    // campaign.id
-
+// Suppression des objets qui font référence à la campagne détruite détruit
+function deleteDependencies(campaign) {
     Pak.find({'campaign': campaign.id}, deletePaks)
     return campaign.remove();
   }
@@ -54,7 +53,6 @@ function test(campaign) {
   { 
     console.log(paks)
     for (var i = 0; i < paks.length; i++) {
-      
       paks[i].remove();
     }
   }
