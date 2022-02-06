@@ -1,5 +1,6 @@
 import { success, notFound, authorOrAdmin } from '../../services/response/'
 import { Campaign } from '.'
+import { Pak } from '../pak'
 
 export const create = ({ user, bodymen: { body } }, res, next) =>
   Campaign.create({ ...body, author: user })
@@ -36,6 +37,24 @@ export const destroy = ({  user, params }, res, next) =>
   Campaign.findById(params.id)
     .then(notFound(res))
     .then(authorOrAdmin(res, user, 'author'))
-    .then((campaign) => campaign ? campaign.remove() : null)
+    .then((campaign) => campaign ? test(campaign) : null)
     .then(success(res, 204))
     .catch(next)
+
+
+function test(campaign) {
+    // campaign.id
+
+    Pak.find({'campaign': campaign.id}, deletePaks)
+    return campaign.remove();
+  }
+
+
+  function deletePaks (err, paks)
+  { 
+    console.log(paks)
+    for (var i = 0; i < paks.length; i++) {
+      
+      paks[i].remove();
+    }
+  }
