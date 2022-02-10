@@ -39,7 +39,7 @@ const config = {
   test: { },
   development: {
     mongo: {
-      uri: 'mongodb://vps-314109d8.vps.ovh.net:27017/sitac-dev',
+      uri: 'mongodb://localhost/sitac-dev',
       options: {
         debug: true
       }

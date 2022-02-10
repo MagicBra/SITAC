@@ -4,7 +4,8 @@ const campaignSchema = new Schema({
   author: {
     type: Schema.ObjectId,
     ref: 'User',
-    required: true
+    required: true,
+    default: null
   },
   name: {
     type: String,
@@ -27,7 +28,7 @@ campaignSchema.methods = {
     const view = {
       // simple view
       id: this.id,
-      author: this.author.view(full),
+      author: this.author ? this.author.view(false) : {"name": "Deleted user"},
       name: this.name,
       description: this.description,
       createdAt: this.createdAt,

@@ -42,17 +42,16 @@ export const destroy = ({  user, params }, res, next) =>
     .catch(next)
 
 
-// Suppression des objets qui font référence à la campagne détruite détruit
+// Suppression des objets qui font référence à la campagne détruite
 function deleteDependencies(campaign) {
-    Pak.find({'campaign': campaign.id}, deletePaks)
+    Pak.find({'campaign': campaign.id}, deleteMongooseArray)
     return campaign.remove();
   }
 
 
-  function deletePaks (err, paks)
+  function deleteMongooseArray (err, array)
   { 
-    console.log(paks)
-    for (var i = 0; i < paks.length; i++) {
-      paks[i].remove();
+    for (var i = 0; i < array.length; i++) {
+      array[i].remove();
     }
   }
