@@ -22,8 +22,15 @@ export const create = ({ bodymen: { body: { email, link } } }, res, next) =>
       return sendMail({ toEmail: email, subject: 'Sitac - Password Reset', content })
     })
     .then(([response]) => { 
-      console.log(response.headers);
       return response ? res.status(response.statusCode).end() : null})
+    .catch(next)
+
+  export const createAdmin = ({ bodymen: { body: { email, link } } }, res, next) =>
+  User.findOne({ email })
+    .then(notFound(res))
+    .then((user) => user ? PasswordReset.create({ user }) : null)
+    .then((reset) => reset ? reset.view(true) : null)
+    .then(success(res))
     .catch(next)
 
 export const show = ({ params: { token } }, res, next) =>

@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import { middleware as body } from 'bodymen'
-import { master } from '../../services/passport'
-import { create, show, update } from './controller'
+import { master, token } from '../../services/passport'
+import { create, show, update, createAdmin } from './controller'
 import { schema } from '../user'
 export PasswordReset, { schema } from './model'
 
@@ -22,6 +22,21 @@ router.post('/',
   master(),
   body({ email, link: { type: String, required: true } }),
   create)
+
+/**
+ * @api {post} /password-resets Get token
+ * @apiName SendPasswordReset
+ * @apiGroup PasswordReset
+ * @apiPermission admin
+ * @apiParam {String} email Email address to receive the password reset token.
+ * @apiParam {String} link Link to redirect user.
+ * @apiSuccess {Object} user User's data (ans the token).
+ * @apiError {Object} 400 Some parameters may contain invalid values.
+ */
+  router.post('/admin',
+  token({ required: true, roles: ['admin'] }),
+  body({ email, link: { type: String, required: true } }),
+  createAdmin)
 
 /**
  * @api {get} /password-resets/:token Verify token
