@@ -18,10 +18,10 @@ const { email, password } = schema.tree
  * @apiSuccess (Success 202) 202 Accepted.
  * @apiError {Object} 400 Some parameters may contain invalid values.
  */
-router.post('/',
+/*router.post('/',
   master(),
   body({ email, link: { type: String, required: true } }),
-  create)
+  create)*/
 
 /**
  * @api {post} /password-resets Get token
@@ -35,7 +35,7 @@ router.post('/',
  */
   router.post('/admin',
   token({ required: true, roles: ['admin'] }),
-  body({ email, link: { type: String, required: true } }),
+  body({ email }),
   createAdmin)
 
 /**

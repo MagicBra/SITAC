@@ -25,7 +25,7 @@ export const create = ({ bodymen: { body: { email, link } } }, res, next) =>
       return response ? res.status(response.statusCode).end() : null})
     .catch(next)
 
-  export const createAdmin = ({ bodymen: { body: { email, link } } }, res, next) =>
+  export const createAdmin = ({ bodymen: { body: { email} } }, res, next) =>
   User.findOne({ email })
     .then(notFound(res))
     .then((user) => user ? PasswordReset.create({ user }) : null)
