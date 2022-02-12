@@ -28,7 +28,7 @@ campaignSchema.methods = {
     const view = {
       // simple view
       id: this.id,
-      author: this.author ? this.author.view(false) : {"name": "Deleted user"},
+      author: this.author ? this.author.view(full) : {"name": "Deleted user"},
       name: this.name,
       description: this.description,
       createdAt: this.createdAt,

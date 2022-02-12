@@ -1,8 +1,9 @@
 import { success, notFound, authorOrAdmin } from '../../services/response/'
 import { Pak } from '.'
+import { Campaign } from '../campaign'
 
-export const create = ({ user, bodymen: { body } }, res, next) =>
-  Pak.create({ ...body, author: user })
+export const create = ({ user, bodymen: { body } }, res, next) => 
+Pak.create({ ...body, author: user })
     .then((pak) => pak.view(true))
     .then(success(res, 201))
     .catch(next)
