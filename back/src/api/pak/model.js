@@ -1,4 +1,5 @@
 import mongoose, { Schema } from 'mongoose'
+import idValidator from 'mongoose-id-validator'
 
 const pakSchema = new Schema({
   author: {
@@ -28,7 +29,7 @@ pakSchema.methods = {
     const view = {
       // simple view
       id: this.id,
-      author: this.author.view(full),
+      author: this.author ? this.author.view(false) : {"name": "Deleted user"},
       name: this.name,
       campaign: this.campaign.view(full), // récupérer la vue de campagne
       createdAt: this.createdAt,
@@ -41,6 +42,8 @@ pakSchema.methods = {
     } : view
   }
 }
+
+pakSchema.plugin(idValidator)
 
 const model = mongoose.model('Pak', pakSchema)
 

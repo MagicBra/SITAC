@@ -1,4 +1,5 @@
 import mongoose, { Schema } from 'mongoose'
+import idValidator from 'mongoose-id-validator'
 
 const opportunitySchema = new Schema({
   author: {
@@ -64,7 +65,7 @@ opportunitySchema.methods = {
     const view = {
       // simple view
       id: this.id,
-      author: this.author.view(full),
+      author: this.author ? this.author.view(false) : {"name": "Deleted user"},
       name: this.name,
       description: this.description,
       is_VEH: this.is_VEH,
@@ -87,6 +88,7 @@ opportunitySchema.methods = {
   }
 }
 
+opportunitySchema.plugin(idValidator)
 const model = mongoose.model('Opportunity', opportunitySchema)
 
 export const schema = model.schema
