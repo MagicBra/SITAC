@@ -4,6 +4,7 @@ import auth from './auth'
 import passwordReset from './password-reset'
 import campaign from './campaign'
 import pak from './pak'
+import opportunity from './opportunity'
 
 const router = new Router()
 
@@ -35,5 +36,6 @@ router.use('/auth', auth)
 router.use('/password-resets', passwordReset)
 router.use('/campaigns', campaign)
 router.use('/paks', pak)
+router.use('/opportunities', opportunity)
 
 export default router
