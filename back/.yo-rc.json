@@ -4,8 +4,7 @@
     "apiDir": "api",
     "authMethods": [
       "password",
-      "facebook",
-      "google"
+      "facebook"
     ]
   }
 }

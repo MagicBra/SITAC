@@ -74,7 +74,7 @@ describe('createFromService', () => {
     }
   })
 
-  ;['facebook', 'google'].forEach((service) => {
+  ;['facebook'].forEach((service) => {
     describe(service, () => {
       beforeEach(() => {
         serviceUser.service = service
