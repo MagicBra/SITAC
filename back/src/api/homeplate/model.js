@@ -1,18 +1,21 @@
 import mongoose, { Schema } from 'mongoose'
+import idValidator from 'mongoose-id-validator'
 
-const campaignSchema = new Schema({
+const homeplateSchema = new Schema({
   author: {
     type: Schema.ObjectId,
     ref: 'User',
-    required: true,
-    default: null
-  },
-  name: {
-    type: String,
     required: true
   },
+  name: {
+    type: String
+  },
   description: {
-    type: String,
+    type: String
+  },
+  campaign: {
+    type: Schema.ObjectId, // prend un id de mongoDB
+    ref: 'Campaign', // /!\ Mettre une majuscule au début (comme ça dans la base)
     required: true
   }
 }, {
@@ -23,7 +26,7 @@ const campaignSchema = new Schema({
   }
 })
 
-campaignSchema.methods = {
+homeplateSchema.methods = {
   view (full) {
     const view = {
       // simple view
@@ -31,6 +34,7 @@ campaignSchema.methods = {
       author: this.author ? this.author.view(false) : {"name": "Deleted user"},
       name: this.name,
       description: this.description,
+      campaign: this.campaign,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt
     }
@@ -42,7 +46,8 @@ campaignSchema.methods = {
   }
 }
 
-const model = mongoose.model('Campaign', campaignSchema)
+homeplateSchema.plugin(idValidator)
+const model = mongoose.model('Homeplate', homeplateSchema)
 
 export const schema = model.schema
 export default model
