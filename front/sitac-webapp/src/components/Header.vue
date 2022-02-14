@@ -5,7 +5,7 @@
       SITAC
     </p>
     <p class="subtitle">
-      Système Informatique Tactique d'Assault Coordonné
+      Situation Tactique
     </p>
   </div>
 </section>
