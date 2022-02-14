@@ -1,6 +1,8 @@
 import { success, notFound, authorOrAdmin } from '../../services/response/'
 import { Campaign } from '.'
 import { Pak } from '../pak'
+import { Opportunity } from '../opportunity'
+import { Homeplate } from '../homeplate'
 
 export const create = ({ user, bodymen: { body } }, res, next) =>
   Campaign.create({ ...body, author: user })
@@ -45,6 +47,8 @@ export const destroy = ({  user, params }, res, next) =>
 // Suppression des objets qui font référence à la campagne détruite
 function deleteDependencies(campaign) {
     Pak.find({'campaign': campaign.id}, deleteMongooseArray)
+    Opportunity.find({'campaign': campaign.id}, deleteMongooseArray)
+    Homeplate.find({'campaign': campaign.id}, deleteMongooseArray)
     return campaign.remove();
   }
 

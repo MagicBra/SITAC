@@ -1,15 +1,17 @@
 import mongoose, { Schema } from 'mongoose'
 import idValidator from 'mongoose-id-validator'
 
-const pakSchema = new Schema({
+const homeplateSchema = new Schema({
   author: {
     type: Schema.ObjectId,
     ref: 'User',
     required: true
   },
   name: {
-    type: String,
-    required: true
+    type: String
+  },
+  description: {
+    type: String
   },
   campaign: {
     type: Schema.ObjectId, // prend un id de mongoDB
@@ -24,14 +26,15 @@ const pakSchema = new Schema({
   }
 })
 
-pakSchema.methods = {
+homeplateSchema.methods = {
   view (full) {
     const view = {
       // simple view
       id: this.id,
       author: this.author ? this.author.view(false) : {"name": "Deleted user"},
       name: this.name,
-      campaign: this.campaign.view(full), // récupérer la vue de campagne
+      description: this.description,
+      campaign: this.campaign,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt
     }
@@ -43,9 +46,8 @@ pakSchema.methods = {
   }
 }
 
-pakSchema.plugin(idValidator)
-
-const model = mongoose.model('Pak', pakSchema)
+homeplateSchema.plugin(idValidator)
+const model = mongoose.model('Homeplate', homeplateSchema)
 
 export const schema = model.schema
 export default model

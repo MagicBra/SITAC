@@ -1,7 +1,7 @@
 import mongoose, { Schema } from 'mongoose'
 import idValidator from 'mongoose-id-validator'
 
-const pakSchema = new Schema({
+const opportunitySchema = new Schema({
   author: {
     type: Schema.ObjectId,
     ref: 'User',
@@ -9,6 +9,42 @@ const pakSchema = new Schema({
   },
   name: {
     type: String,
+    required: true
+  },
+  description: {
+    type: String,
+    required: true
+  },
+  is_VEH: {
+    type: Boolean,
+    required: true
+  },
+  is_SAM: {
+    type: Boolean,
+    required: true
+  },
+  is_CSAR: {
+    type: Boolean,
+    required: true
+  },
+  is_UCAS: {
+    type: Boolean,
+    required: true
+  },
+  priority: {
+    type: String,
+    required: true
+  },
+  age: {
+    type: Number,
+    required: true
+  },
+  coord_DMS: {
+    type: String,
+    required: true
+  },
+  alt: {
+    type: Number,
     required: true
   },
   campaign: {
@@ -24,13 +60,22 @@ const pakSchema = new Schema({
   }
 })
 
-pakSchema.methods = {
+opportunitySchema.methods = {
   view (full) {
     const view = {
       // simple view
       id: this.id,
       author: this.author ? this.author.view(false) : {"name": "Deleted user"},
       name: this.name,
+      description: this.description,
+      is_VEH: this.is_VEH,
+      is_SAM: this.is_SAM,
+      is_CSAR: this.is_CSAR,
+      is_UCAS: this.is_UCAS,
+      priority: this.priority,
+      age: this.age,
+      coord_DMS: this.coord_DMS,
+      alt: this.alt,
       campaign: this.campaign.view(full), // récupérer la vue de campagne
       createdAt: this.createdAt,
       updatedAt: this.updatedAt
@@ -43,9 +88,8 @@ pakSchema.methods = {
   }
 }
 
-pakSchema.plugin(idValidator)
-
-const model = mongoose.model('Pak', pakSchema)
+opportunitySchema.plugin(idValidator)
+const model = mongoose.model('Opportunity', opportunitySchema)
 
 export const schema = model.schema
 export default model
