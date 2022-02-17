@@ -144,7 +144,7 @@ export default {
       this.loadAsyncData();
     },
     onItemClick(row) {
-      this.$router.push(this.endpoint+"/" + row.id);
+      this.$router.push("/"+this.endpoint+"/" + row.id);
     },
   },
   filters: {

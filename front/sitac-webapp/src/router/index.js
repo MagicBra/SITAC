@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Campaign from '../views/Campaign.vue'
+import CampaignDetail from '../views/CampaignDetail.vue'
 
 Vue.use(VueRouter)
 
@@ -18,8 +19,8 @@ const routes = [
   },
   {
     path: '/campaigns/:id',
-    name: 'Campaign',
-    component: Campaign
+    name: 'CampaignDetail',
+    component: CampaignDetail
   }
 ]
 
