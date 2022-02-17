@@ -53,7 +53,7 @@ export default {
         .then(({ data }) => {
           console.log(data);
           this.loading = false;
-          //this.$router.push("scans");
+          this.$router.push("/campaigns");
           Toast.open({
             message: "Connexion réussie",
             type: "is-success",
