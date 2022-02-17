@@ -38,30 +38,8 @@
         :default-sort="[sortField, sortOrder]"
         @sort="onSort"
         @click="onItemClick"
+        :columns="columns"
       >
-        <b-table-column field="name" label="Name" sortable v-slot="props">
-          {{ props.row.name }}
-        </b-table-column>
-
-        <b-table-column field="description" label="Description" sortable v-slot="props">
-          {{ props.row.description }}
-        </b-table-column>
-
-        <b-table-column
-          field="createdAt"
-          label="Date"
-          sortable
-          centered
-          v-slot="props"
-        >
-          {{
-            props.row.createdAt
-              ? new Date(props.row.createdAt).toLocaleDateString() +
-                " " +
-                new Date(props.row.createdAt).toLocaleTimeString()
-              : "unknown"
-          }}
-        </b-table-column>
       </b-table>
     </section>
   </div>
@@ -72,7 +50,7 @@
 <script>
 import { ToastProgrammatic as Toast } from "buefy";
 export default {
-  props: ["url", "accessToken"],
+  props: ["url", "endpoint", "accessToken", "columns"],
   data() {
     return {
       data: [],
@@ -100,7 +78,7 @@ export default {
       ].join("&");
       this.loading = true;
       this.$http
-        .get(`${this.url}/campaigns?${params}`)
+        .get(`${this.url}/${this.endpoint}?${params}`)
         .then(({ data }) => {
           this.data = [];
           let oneMorePage = 10 * this.page + 10;
@@ -112,6 +90,12 @@ export default {
             this.total = oneMorePage;
           }
           data.forEach((item) => {
+            item.createdAt
+              ? (item.createdAt =
+                  new Date(item.createdAt).toLocaleDateString() +
+                  " " +
+                  new Date(item.createdAt).toLocaleTimeString())
+              : (item.createdAt = "unknown");
             this.data.push(item);
           });
           this.loading = false;
@@ -159,9 +143,9 @@ export default {
     refresh() {
       this.loadAsyncData();
     },
-    /*onItemClick(row) {
-      this.$router.push("detailPP/" + row.id);
-    },*/
+    onItemClick(row) {
+      this.$router.push(this.endpoint+"/" + row.id);
+    },
   },
   filters: {
     /**
