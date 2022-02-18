@@ -49,6 +49,8 @@
 
 <script>
 import { ToastProgrammatic as Toast } from "buefy";
+//import ApiHandlerService from "../services/ApiHandlerService";
+
 export default {
   props: ["url", "endpoint", "accessToken", "columns"],
   data() {
@@ -79,7 +81,20 @@ export default {
       this.loading = true;
       this.$http
         .get(`${this.url}/${this.endpoint}?${params}`)
-        .then(({ data }) => {
+        .then(this.loadData)
+        .catch((error) => {
+          Toast.open({
+            message: "Vous n'êtes pas connecté à votre compte.",
+            type: "is-danger",
+          });
+          this.data = [];
+          this.total = 0;
+          this.loading = false;
+          throw error;
+        });
+    },
+
+    loadData({data}){
           this.data = [];
           let oneMorePage = 10 * this.page + 10;
           let fullPage = 10 * this.page;
@@ -99,17 +114,6 @@ export default {
             this.data.push(item);
           });
           this.loading = false;
-        })
-        .catch((error) => {
-          Toast.open({
-            message: "Vous n'êtes pas connecté à votre compte.",
-            type: "is-danger",
-          });
-          this.data = [];
-          this.total = 0;
-          this.loading = false;
-          throw error;
-        });
     },
     /*
      * Handle page-change event

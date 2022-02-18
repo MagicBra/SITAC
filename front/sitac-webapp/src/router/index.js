@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import Campaign from '../views/Campaign.vue'
+import CampaignList from '../views/CampaignList.vue'
 import CampaignDetail from '../views/CampaignDetail.vue'
 
 Vue.use(VueRouter)
@@ -14,8 +14,8 @@ const routes = [
   },
   {
     path: '/campaigns',
-    name: 'Campaign',
-    component: Campaign
+    name: 'CampaignList',
+    component: CampaignList
   },
   {
     path: '/campaigns/:id',

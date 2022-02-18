@@ -19,44 +19,45 @@
 </template>
 
 <script>
+import { ToastProgrammatic as Toast } from "buefy";
+import ApiHandlerService from "../services/ApiHandlerService";
+
 export default {
   components: {},
   name: "CampaignDetail",
   mounted() {
-    console.log("test: " + this.id);
-    this.$http
-      .get(`http://localhost:9000/campaigns/${this.id}`, this.config)
-      .then(({ data }) => {
-        this.data = data;
-      });
+    // Récupérer les données au démarrage de la page
+    ApiHandlerService.getById("campaigns", this.id, ({ data }) => {
+      this.data = data;
+    });
   },
   data() {
     return {
-      token: `${window.token}`,
       id: `${this.$route.params.id}`,
       data: {},
-      config: {
-        headers: { Authorization: `Bearer ${window.token}` },
-      },
     };
   },
   methods: {
     updateData() {
-      console.log("blur");
+      // Mettre à jour les données
+      var body = {
+        name: this.data.name,
+        description: this.data.description,
+      };
 
-      this.$http
-        .put(
-          `http://localhost:9000/campaigns/${this.id}`,
-          {
-            access_token: this.token,
-            name: this.data.name,
-            description: this.data.description,
-          },
-          this.config
-        )
-        .then(({ data }) => {
+      ApiHandlerService.put(
+        "campaigns",
+        this.id,
+        body,
+        ({ data }) => {
           this.data = data;
-        });
+
+          Toast.open({
+            message: "Mise à jour réussi !",
+            type: "is-success",
+          });
+        }
+      );
     },
   },
 };

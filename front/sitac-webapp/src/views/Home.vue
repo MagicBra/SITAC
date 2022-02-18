@@ -57,7 +57,6 @@ export default {
           Toast.open({
             message: "Connexion réussie",
             type: "is-success",
-            // position: "is-bottom",
           });
           window.token = data.token;
           console.log(window.token);
@@ -67,7 +66,6 @@ export default {
           Toast.open({
             message: "Mauvais email et/ou mot de passe",
             type: "is-danger",
-            //position: "is-bottom",
           });
           throw error;
         });
