@@ -27,7 +27,7 @@ export default {
   name: "CampaignDetail",
   mounted() {
     // Récupérer les données au démarrage de la page
-    ApiHandlerService.getById("campaigns", this.id, ({ data }) => {
+    ApiHandlerService.getById("campaigns", this.id, {}, ({ data }) => {
       this.data = data;
     });
   },

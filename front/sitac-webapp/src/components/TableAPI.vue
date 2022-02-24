@@ -48,11 +48,10 @@
 
 
 <script>
-import { ToastProgrammatic as Toast } from "buefy";
-//import ApiHandlerService from "../services/ApiHandlerService";
+import ApiHandlerService from "../services/ApiHandlerService";
 
 export default {
-  props: ["url", "endpoint", "accessToken", "columns"],
+  props: ["endpoint", "columns"],
   data() {
     return {
       data: [],
@@ -71,50 +70,61 @@ export default {
      * Load async data
      */
     loadAsyncData() {
-      const params = [
-        `page=${this.page}`,
-        `access_token=${this.accessToken}`,
-        `limit=${this.perPage}`,
-        `sort=${this.sortOrder == "desc" ? "-" : ""}${this.sortField}`,
-        `${this.searchQuery != "" ? "q=" : ""}${this.searchQuery}`,
-      ].join("&");
+      const params = {
+        page: `${this.page}`,
+        limit:`${this.perPage}`,
+        sort: `${this.sortOrder == "desc" ? "-" : ""}${this.sortField}`,
+        q: `${this.searchQuery}`
+      }
+
       this.loading = true;
-      this.$http
-        .get(`${this.url}/${this.endpoint}?${params}`)
-        .then(this.loadData)
-        .catch((error) => {
-          Toast.open({
-            message: "Vous n'êtes pas connecté à votre compte.",
-            type: "is-danger",
-          });
-          this.data = [];
-          this.total = 0;
-          this.loading = false;
-          throw error;
-        });
+
+      ApiHandlerService.getList(
+        this.endpoint,
+        params,
+        this.successLoadData,
+        null,
+        this.errorLoadData
+      );
     },
 
-    loadData({data}){
-          this.data = [];
-          let oneMorePage = 10 * this.page + 10;
-          let fullPage = 10 * this.page;
-          let currentItems = data.length * this.page;
-          console.log("fullPage: " + fullPage);
-          console.log("currentItems: " + currentItems);
-          if (this.total < oneMorePage && currentItems == fullPage) {
-            this.total = oneMorePage;
-          }
-          data.forEach((item) => {
-            item.createdAt
-              ? (item.createdAt =
-                  new Date(item.createdAt).toLocaleDateString() +
-                  " " +
-                  new Date(item.createdAt).toLocaleTimeString())
-              : (item.createdAt = "unknown");
-            this.data.push(item);
-          });
-          this.loading = false;
+    /*
+    * Sucessfully get data from the API
+    */
+    successLoadData({ data }) {
+      this.data = [];
+      let oneMorePage = 10 * this.page + 10;
+      let fullPage = 10 * this.page;
+      let currentItems = data.length * this.page;
+      console.log("fullPage: " + fullPage);
+      console.log("currentItems: " + currentItems);
+      if (this.total < oneMorePage && currentItems == fullPage) {
+        this.total = oneMorePage;
+      }
+      data.forEach((item) => {
+        // Parse createdAt to date
+        item.createdAt
+          ? (item.createdAt =
+              new Date(item.createdAt).toLocaleDateString() +
+              " " +
+              new Date(item.createdAt).toLocaleTimeString())
+          : (item.createdAt = "unknown");
+
+        // Push to the table data
+        this.data.push(item);
+      });
+      this.loading = false;
     },
+
+    /*
+    * Failed to get data from the API
+    */
+    errorLoadData() {
+      this.data = [];
+      this.total = 0;
+      this.loading = false;
+    },
+
     /*
      * Handle page-change event
      */
@@ -148,7 +158,7 @@ export default {
       this.loadAsyncData();
     },
     onItemClick(row) {
-      this.$router.push("/"+this.endpoint+"/" + row.id);
+      this.$router.push("/" + this.endpoint + "/" + row.id);
     },
   },
   filters: {
@@ -159,6 +169,10 @@ export default {
       return value.length > length ? value.substr(0, length) + "..." : value;
     },
   },
+
+  /**
+   * On page loading
+   */
   mounted() {
     this.loadAsyncData();
   },

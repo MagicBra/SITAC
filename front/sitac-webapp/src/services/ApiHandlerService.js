@@ -12,33 +12,87 @@ export default {
       configAPI: {
         headers: { Authorization: `Bearer ${window.token}` },
       },
+      routePathLogin : "/"
     }
   },
-  getList(endpoint, callback) {
-    axios.get(`${this.config().baseUrl}/${endpoint}/`, this.config().configAPI).then(callback).catch(this.toastError)
-  },
-  getById(endpoint, id, callback) {
-    axios.get(`${this.config().baseUrl}/${endpoint}/${id}`, this.config().configAPI).then(callback).catch(this.toastError)
-  },
-  put(endpoint, id, body, callback) {
-    axios.put(`${this.config().baseUrl}/${endpoint}/${id}`, body, this.config().configAPI).then(callback).catch(this.toastError)
+
+  auth(user, pass, callback, msgErrors, errorCallback) {
+    const authentification = {
+      auth: {
+        username: user,
+        password: pass,
+      },
+    };
+    var context = this;
+    axios.post(`${this.config().baseUrl}/auth/`, "", authentification).then(callback).catch((error) => {
+      context.toastError(error, msgErrors, context.config())
+      if(errorCallback)
+        errorCallback(error)
+    });
   },
 
-  toastError(error) {
-    var msg = "Erreur iconnue !";
+  getList(endpoint, params, callback, msgErrors, errorCallback) {
+    var context = this;
+    var prms = this.generateParams(params);
 
-    if (error.response.status == 401){
-      msg = "Vous n'êtes pas connecté !"
-      router.push("/");
-    }
-    else if (error.response.status == 403)
-      msg = "Vous n'êtes pas autorisé !"
-    else if (error.response.status == 404)
-      msg = "Ressource introuvable !"
+    axios.get(`${this.config().baseUrl}/${endpoint}?${prms}`, this.config().configAPI).then(callback).catch((error) => {
+      context.toastError(error, msgErrors, context.config())
+      if(errorCallback)
+        errorCallback(error)
+    });
+  },
+
+  getById(endpoint, id, params, callback, msgErrors, errorCallback) {
+    var context = this;
+    var prms = this.generateParams(params);
+
+    axios.get(`${this.config().baseUrl}/${endpoint}/${id}?${prms}`, this.config().configAPI).then(callback).catch((error) => {
+      context.toastError(error, msgErrors, context.config())
+      if(errorCallback)
+        errorCallback(error)
+    });
+  },
+
+  put(endpoint, id, body, callback, msgErrors, errorCallback) {
+    var context = this;
+    axios.put(`${this.config().baseUrl}/${endpoint}/${id}`, body, this.config().configAPI).then(callback).catch((error) => {
+      context.toastError(error, msgErrors, context.config())
+      if(errorCallback)
+        errorCallback(error)
+    });
+  },
+
+  toastError(error, msgErrors, config) {
+    var status = error.response.status;
+
+    var defaultError = "Erreur inconnue";
+
+    var msg = [];
+    msg[401] = "Vous n'êtes pas connecté à votre compte";
+    msg[403] = "Vous n'êtes pas autorisé";
+    msg[404] = "Ressource introuvable";
+
+    if (msgErrors != null)
+      msgErrors.forEach(function callback(value, index) {
+        msg[index] = value;
+      });
 
     Toast.open({
-      message: msg,
+      message: msg[status] !== undefined ? msg[status] : defaultError,
       type: "is-danger",
     });
+
+    // If token has expired, route to login page
+    if (error.response.status == 401 && router.currentRoute.path != config.routePathLogin)
+      router.push(config.routePathLogin);
+  },
+
+  generateParams(paramsJson){
+    var prms = [];
+    for (var prop in paramsJson) {
+      if(paramsJson[prop]!="")
+        prms.push(prop+"="+paramsJson[prop])
+    }
+    return prms.join("&");
   }
 }
