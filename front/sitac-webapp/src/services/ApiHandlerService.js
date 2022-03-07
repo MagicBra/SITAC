@@ -31,6 +31,17 @@ export default {
     });
   },
 
+  create(endpoint, params, body, callback, msgErrors, errorCallback) {
+    var context = this;
+    var prms = this.generateParams(params);
+
+    axios.post(`${this.config().baseUrl}/${endpoint}?${prms}`, body, this.config().configAPI).then(callback).catch((error) => {
+      context.toastError(error, msgErrors, context.config())
+      if(errorCallback)
+        errorCallback(error)
+    });
+  },
+
   getList(endpoint, params, callback, msgErrors, errorCallback) {
     var context = this;
     var prms = this.generateParams(params);

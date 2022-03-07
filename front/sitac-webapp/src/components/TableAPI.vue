@@ -15,10 +15,14 @@
       </p>
     </b-field>
     <section>
-      <b-button type="is-primary" :loading="loading" @click="refresh"
-        >Rafraichir</b-button
-      >
+      <b-field label="">
+        <b-button type="is-primary" :loading="loading" @click="refresh"
+          >Rafraichir</b-button
+        >
+      </b-field>
+      <b-button type="is-success" @click="create">New campaign</b-button>
     </section>
+
     <section>
       <b-table
         :data="data"
@@ -37,9 +41,22 @@
         :default-sort-direction="defaultSortOrder"
         :default-sort="[sortField, sortOrder]"
         @sort="onSort"
-        @click="onItemClick"
-        :columns="columns"
       >
+        <b-table-column
+          v-for="(column, index) in columns"
+          :key="index"
+          :label="column.label"
+          :field="column.field"
+          v-slot="props"
+          :sortable="column.sortable"
+        >
+          {{ props.row[column.field] }}
+        </b-table-column>
+
+        <b-table-column field="id" label="ID" width="40" numeric v-slot="props">
+                <b-button type="is-primary" @click="edit(props.row)" > edit </b-button>
+            </b-table-column>
+
       </b-table>
     </section>
   </div>
@@ -72,10 +89,10 @@ export default {
     loadAsyncData() {
       const params = {
         page: `${this.page}`,
-        limit:`${this.perPage}`,
+        limit: `${this.perPage}`,
         sort: `${this.sortOrder == "desc" ? "-" : ""}${this.sortField}`,
-        q: `${this.searchQuery}`
-      }
+        q: `${this.searchQuery}`,
+      };
 
       this.loading = true;
 
@@ -89,8 +106,8 @@ export default {
     },
 
     /*
-    * Sucessfully get data from the API
-    */
+     * Sucessfully get data from the API
+     */
     successLoadData({ data }) {
       this.data = [];
       let oneMorePage = 10 * this.page + 10;
@@ -117,8 +134,8 @@ export default {
     },
 
     /*
-    * Failed to get data from the API
-    */
+     * Failed to get data from the API
+     */
     errorLoadData() {
       this.data = [];
       this.total = 0;
@@ -141,24 +158,14 @@ export default {
       this.total = 0;
       this.loadAsyncData();
     },
-    /*
-     * Type style in relation to the value
-     */
-    type(value) {
-      const number = parseFloat(value);
-      if (number < 6) {
-        return "is-danger";
-      } else if (number >= 6 && number < 8) {
-        return "is-warning";
-      } else if (number >= 8) {
-        return "is-success";
-      }
-    },
     refresh() {
       this.loadAsyncData();
     },
-    onItemClick(row) {
+    edit(row) {
       this.$router.push("/" + this.endpoint + "/" + row.id);
+    },
+    create() {
+      this.$router.push("/create/" + this.endpoint);
     },
   },
   filters: {

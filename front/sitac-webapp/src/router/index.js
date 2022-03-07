@@ -21,6 +21,11 @@ const routes = [
     path: '/campaigns/:id',
     name: 'CampaignDetail',
     component: CampaignDetail
+  },
+  {
+    path: '/create/campaigns/',
+    name: 'CampaignDetail',
+    component: CampaignDetail
   }
 ]
 

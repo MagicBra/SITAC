@@ -1,6 +1,7 @@
 <template>
   <section class="section">
     <h1 class="title">Campaigns list</h1>
+
      <TableAPI
      endpoint="campaigns"
       :columns= "[
@@ -18,7 +19,7 @@
           field: 'createdAt',
           label: 'Created at',
           sortable: true
-        }
+        }, 
       ]" />
   </section>
 </template>

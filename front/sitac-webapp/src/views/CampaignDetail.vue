@@ -27,9 +27,11 @@ export default {
   name: "CampaignDetail",
   mounted() {
     // Récupérer les données au démarrage de la page
-    ApiHandlerService.getById("campaigns", this.id, {}, ({ data }) => {
-      this.data = data;
-    });
+    if (this.id != "undefined") {
+      ApiHandlerService.getById("campaigns", this.id, {}, ({ data }) => {
+        this.data = data;
+      });
+    }
   },
   data() {
     return {
@@ -45,19 +47,14 @@ export default {
         description: this.data.description,
       };
 
-      ApiHandlerService.put(
-        "campaigns",
-        this.id,
-        body,
-        ({ data }) => {
-          this.data = data;
+      ApiHandlerService.put("campaigns", this.id, body, ({ data }) => {
+        this.data = data;
 
-          Toast.open({
-            message: "Mise à jour réussi !",
-            type: "is-success",
-          });
-        }
-      );
+        Toast.open({
+          message: "Mise à jour réussi !",
+          type: "is-success",
+        });
+      });
     },
   },
 };

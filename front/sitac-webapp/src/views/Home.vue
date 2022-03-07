@@ -7,11 +7,11 @@
       <div class="column is-one-quarter">
         <form class="box">
           <b-field label="Email">
-            <b-input type="email" value="" maxlength="50" v-model="email">
+            <b-input type="email" value="" maxlength="50" v-model="email" @keyup.native.enter="connexion">
             </b-input>
           </b-field>
 
-          <b-field label="Password">
+          <b-field label="Password"  @keyup.native.enter="connexion">
             <b-input value="" type="password" v-model="password"></b-input>
           </b-field>
 
