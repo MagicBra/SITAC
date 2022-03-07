@@ -31,11 +31,11 @@ export default {
     });
   },
 
-  create(endpoint, params, body, callback, msgErrors, errorCallback) {
-    var context = this;
-    var prms = this.generateParams(params);
 
-    axios.post(`${this.config().baseUrl}/${endpoint}?${prms}`, body, this.config().configAPI).then(callback).catch((error) => {
+  post(endpoint, body, callback, msgErrors, errorCallback) {
+    var context = this;
+
+    axios.post(`${this.config().baseUrl}/${endpoint}`, body, this.config().configAPI).then(callback).catch((error) => {
       context.toastError(error, msgErrors, context.config())
       if(errorCallback)
         errorCallback(error)
@@ -67,6 +67,15 @@ export default {
   put(endpoint, id, body, callback, msgErrors, errorCallback) {
     var context = this;
     axios.put(`${this.config().baseUrl}/${endpoint}/${id}`, body, this.config().configAPI).then(callback).catch((error) => {
+      context.toastError(error, msgErrors, context.config())
+      if(errorCallback)
+        errorCallback(error)
+    });
+  },
+
+  delete(endpoint, id, callback, msgErrors, errorCallback) {
+    var context = this;
+    axios.delete(`${this.config().baseUrl}/${endpoint}/${id}`, this.config().configAPI).then(callback).catch((error) => {
       context.toastError(error, msgErrors, context.config())
       if(errorCallback)
         errorCallback(error)

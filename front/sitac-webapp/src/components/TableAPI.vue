@@ -15,11 +15,6 @@
       </p>
     </b-field>
     <section>
-      <b-field label="">
-        <b-button type="is-primary" :loading="loading" @click="refresh"
-          >Rafraichir</b-button
-        >
-      </b-field>
       <b-button type="is-success" @click="create">New campaign</b-button>
     </section>
 
@@ -53,8 +48,11 @@
           {{ props.row[column.field] }}
         </b-table-column>
 
-        <b-table-column field="id" label="ID" width="40" numeric v-slot="props">
+        <b-table-column field="actions" label="Actions" width="200" v-slot="props">
+          <div class="buttons">
                 <b-button type="is-primary" @click="edit(props.row)" > edit </b-button>
+                <b-button type="is-danger" @click="remove(props.row)" > delete </b-button>
+                </div>
             </b-table-column>
 
       </b-table>
@@ -164,8 +162,15 @@ export default {
     edit(row) {
       this.$router.push("/" + this.endpoint + "/" + row.id);
     },
+    remove(row) {
+      ApiHandlerService.delete(
+        this.endpoint,
+        row.id,
+        this.loadAsyncData
+      );
+    },
     create() {
-      this.$router.push("/create/" + this.endpoint);
+      this.$router.push("/" + this.endpoint + "/create");
     },
   },
   filters: {
