@@ -108,15 +108,9 @@ export default {
      */
     successLoadData({ data }) {
       this.data = [];
-      let oneMorePage = 10 * this.page + 10;
-      let fullPage = 10 * this.page;
-      let currentItems = data.length * this.page;
-      console.log("fullPage: " + fullPage);
-      console.log("currentItems: " + currentItems);
-      if (this.total < oneMorePage && currentItems == fullPage) {
-        this.total = oneMorePage;
-      }
-      data.forEach((item) => {
+      this.total = data.count;
+
+      data.rows.forEach((item) => {
         // Parse createdAt to date
         item.createdAt
           ? (item.createdAt =

@@ -29,7 +29,6 @@ export default {
   name: "CampaignDetail",
   mounted() {
     this.isEdit = this.$route.params.id != "create";
-
     if (this.isEdit) {
       // Récupérer les données au démarrage de la page
       ApiHandlerService.getById("campaigns", this.id, {}, ({ data }) => {
@@ -71,12 +70,9 @@ export default {
             message: "Création réussi !",
             type: "is-success",
           });
-
-          this.$router.push("/campaigns/"+data.id);
-          this.id = data.id;
-          this.isEdit = true;
         });
       }
+      this.$router.push("/campaigns/");
     },
   },
 };

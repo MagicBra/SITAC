@@ -11,9 +11,14 @@ export const create = ({ user, bodymen: { body } }, res, next) =>
     .catch(next)
 
 export const index = ({ querymen: { query, select, cursor } }, res, next) =>
-  Campaign.find(query, select, cursor)
-    .populate('author')
-    .then((campaigns) => campaigns.map((campaign) => campaign.view()))
+  Campaign.count(query)
+  .then(count => Campaign.find(query, select, cursor)
+  .populate('author')
+  .then((campaigns) => ({
+    count,
+    rows: campaigns.map((campaign) => campaign.view())
+  }))
+)
     .then(success(res))
     .catch(next)
 

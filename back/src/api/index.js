@@ -6,6 +6,7 @@ import campaign from './campaign'
 import pak from './pak'
 import opportunity from './opportunity'
 import homeplate from './homeplate'
+import moa from './moa'
 
 const router = new Router()
 
@@ -39,5 +40,6 @@ router.use('/campaigns', campaign)
 router.use('/paks', pak)
 router.use('/opportunities', opportunity)
 router.use('/homeplates', homeplate)
+router.use('/moas', moa)
 
 export default router
