@@ -8,10 +8,15 @@ export const create = ({ user, bodymen: { body } }, res, next) =>
     .catch(next)
 
 export const index = ({ querymen: { query, select, cursor } }, res, next) =>
-  Homeplate.find(query, select, cursor)
-    .populate('author')
-    .populate('campaign')
-    .then((homeplates) => homeplates.map((homeplate) => homeplate.view()))
+Homeplate.count(query)
+    .then(count => Homeplate.find(query, select, cursor)
+      .populate('author')
+      .populate('campaign')
+      .then((homeplates) => ({
+        count,
+        rows: homeplates.map((homeplate) => homeplate.view())
+      }))
+    )
     .then(success(res))
     .catch(next)
 

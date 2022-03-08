@@ -12,13 +12,13 @@ export const create = ({ user, bodymen: { body } }, res, next) =>
 
 export const index = ({ querymen: { query, select, cursor } }, res, next) =>
   Campaign.count(query)
-  .then(count => Campaign.find(query, select, cursor)
-  .populate('author')
-  .then((campaigns) => ({
-    count,
-    rows: campaigns.map((campaign) => campaign.view())
-  }))
-)
+    .then(count => Campaign.find(query, select, cursor)
+      .populate('author')
+      .then((campaigns) => ({
+        count,
+        rows: campaigns.map((campaign) => campaign.view())
+      }))
+    )
     .then(success(res))
     .catch(next)
 
@@ -40,7 +40,7 @@ export const update = ({ user, bodymen: { body }, params }, res, next) =>
     .then(success(res))
     .catch(next)
 
-export const destroy = ({  user, params }, res, next) =>
+export const destroy = ({ user, params }, res, next) =>
   Campaign.findById(params.id)
     .then(notFound(res))
     .then(authorOrAdmin(res, user, 'author'))
@@ -51,16 +51,15 @@ export const destroy = ({  user, params }, res, next) =>
 
 // Suppression des objets qui font référence à la campagne détruite
 function deleteDependencies(campaign) {
-    Pak.find({'campaign': campaign.id}, deleteMongooseArray)
-    Opportunity.find({'campaign': campaign.id}, deleteMongooseArray)
-    Homeplate.find({'campaign': campaign.id}, deleteMongooseArray)
-    return campaign.remove();
-  }
+  Pak.find({ 'campaign': campaign.id }, deleteMongooseArray)
+  Opportunity.find({ 'campaign': campaign.id }, deleteMongooseArray)
+  Homeplate.find({ 'campaign': campaign.id }, deleteMongooseArray)
+  return campaign.remove();
+}
 
 
-  function deleteMongooseArray (err, array)
-  { 
-    for (var i = 0; i < array.length; i++) {
-      array[i].remove();
-    }
+function deleteMongooseArray(err, array) {
+  for (var i = 0; i < array.length; i++) {
+    array[i].remove();
   }
+}

@@ -8,10 +8,15 @@ export const create = ({ user, bodymen: { body } }, res, next) =>
     .catch(next)
 
 export const index = ({ querymen: { query, select, cursor } }, res, next) =>
-  Opportunity.find(query, select, cursor)
-    .populate('author')
-    .populate('campaign')
-    .then((opportunities) => opportunities.map((opportunity) => opportunity.view()))
+  Opportunity.count(query)
+    .then(count => Opportunity.find(query, select, cursor)
+      .populate('author')
+      .populate('campaign')
+      .then((opportunities) => ({
+        count,
+        rows: opportunities.map((opportunity) => opportunity.view())
+      }))
+    )
     .then(success(res))
     .catch(next)
 

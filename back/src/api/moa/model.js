@@ -7,13 +7,17 @@ const moaSchema = new Schema({
     required: true
   },
   name: {
-    type: String
+    type: String,
+    required: true
   },
   side: {
-    type: String
+    type: String,
+    required: true
   },
   pak: {
-    type: String
+    type: Schema.ObjectId, // prend un id de mongoDB
+    ref: 'Pak', // /!\ Mettre une majuscule au début (comme ça dans la base)
+    required: true
   }
 }, {
   timestamps: true,
