@@ -7,11 +7,17 @@
       <div class="column is-one-quarter">
         <form class="box">
           <b-field label="Email">
-            <b-input type="email" value="" maxlength="50" v-model="email" @keyup.native.enter="connexion">
+            <b-input
+              type="email"
+              value=""
+              maxlength="50"
+              v-model="email"
+              @keyup.native.enter="connexion"
+            >
             </b-input>
           </b-field>
 
-          <b-field label="Password"  @keyup.native.enter="connexion">
+          <b-field label="Password" @keyup.native.enter="connexion">
             <b-input value="" type="password" v-model="password"></b-input>
           </b-field>
 
@@ -37,6 +43,14 @@ export default {
       password: "",
     };
   },
+  mounted() {
+    if (localStorage.token) {
+      this.$router.push("/campaigns");
+      Toast.open({
+        message: "Vous êtes déjà connecté",
+      });
+    }
+  },
   methods: {
     connexion() {
       this.loading = true;
@@ -59,7 +73,15 @@ export default {
         message: "Connexion réussie",
         type: "is-success",
       });
-      window.token = data.token;
+      localStorage.token = data.token;
+
+      window.dispatchEvent(
+        new CustomEvent("foo-key-localstorage-changed", {
+          detail: {
+            storage: localStorage.token,
+          },
+        })
+      );
     },
     errorConnexion() {
       this.loading = false;

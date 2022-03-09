@@ -10,7 +10,7 @@ export default {
     return {
       baseUrl: "http://localhost:9000",
       configAPI: {
-        headers: { Authorization: `Bearer ${window.token}` },
+        headers: { Authorization: `Bearer ${localStorage.token}` },
       },
       routePathLogin : "/"
     }

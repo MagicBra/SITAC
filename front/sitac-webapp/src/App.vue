@@ -4,10 +4,7 @@
       rel="stylesheet"
       href="https://cdn.materialdesignicons.com/5.3.45/css/materialdesignicons.min.css"
     />
-    <Header/>
-    <div id="nav">
-      <router-link to="/">Connexion</router-link>
-    </div>
+    <Header />
     <router-view />
   </div>
 </template>
@@ -33,14 +30,18 @@
 
 
 <script>
-import Header from './components/Header.vue';
-//import AdminHeader from "./components/AdminHeader.vue";
-//import SideMenu from "./components/SideMenu.vue";
+import Header from "./components/Header.vue";
+
 export default {
   name: "App",
   components: {
-    Header
+    Header,
     // SideMenu,
+  },
+  data() {
+    return {
+      token: localStorage.token,
+    };
   },
 };
 </script>
