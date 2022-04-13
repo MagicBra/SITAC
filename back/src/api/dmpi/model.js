@@ -57,7 +57,7 @@ dmpiSchema.methods = {
     const view = {
       // simple view
       id: this.id,
-      author: this.author.view(full),
+      author: this.author ? this.author.view(false) : {"name": "Deleted user"},
       name: this.name,
       description: this.description,
       value: this.value,
