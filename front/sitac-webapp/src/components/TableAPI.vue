@@ -15,7 +15,7 @@
       </p>
     </b-field>
     <section>
-      <b-button type="is-success" @click="create">New campaign</b-button>
+      <b-button type="is-success" @click="create">Nouvelle campagne</b-button>
     </section>
 
     <section>
