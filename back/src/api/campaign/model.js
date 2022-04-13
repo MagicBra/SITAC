@@ -1,5 +1,9 @@
 import mongoose, { Schema } from 'mongoose'
 
+import { Pak } from '../pak'
+import { Opportunity } from '../opportunity'
+import { Homeplate } from '../homeplate'
+
 const campaignSchema = new Schema({
   author: {
     type: Schema.ObjectId,
@@ -39,6 +43,21 @@ campaignSchema.methods = {
       ...view
       // add properties for a full view
     } : view
+  }
+}
+
+campaignSchema.pre('remove', function(next) {
+  Pak.find({ 'campaign': this.id }, deleteMongooseArray)
+  Opportunity.find({ 'campaign': this.id }, deleteMongooseArray)
+  Homeplate.find({ 'campaign': this.id }, deleteMongooseArray)
+
+  next();
+});
+
+
+function deleteMongooseArray(err, array) {
+  for (var i = 0; i < array.length; i++) {
+    array[i].remove();
   }
 }
 

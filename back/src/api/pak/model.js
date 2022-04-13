@@ -1,6 +1,8 @@
 import mongoose, { Schema } from 'mongoose'
 import idValidator from 'mongoose-id-validator'
 
+import { Moa } from '../moa'
+
 const pakSchema = new Schema({
   author: {
     type: Schema.ObjectId,
@@ -40,6 +42,18 @@ pakSchema.methods = {
       ...view
       // add properties for a full view
     } : view
+  }
+}
+
+pakSchema.pre('remove', function(next) {
+  Moa.find({ 'pak': this.id }, deleteMongooseArray)
+  next();
+});
+
+
+function deleteMongooseArray(err, array) {
+  for (var i = 0; i < array.length; i++) {
+    array[i].remove();
   }
 }
 

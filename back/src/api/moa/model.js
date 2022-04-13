@@ -1,6 +1,8 @@
 import mongoose, { Schema } from 'mongoose'
 import idValidator from 'mongoose-id-validator'
 
+import { Dmpi } from '../dmpi'
+
 const moaSchema = new Schema({
   author: {
     type: Schema.ObjectId,
@@ -45,6 +47,18 @@ moaSchema.methods = {
       ...view
       // add properties for a full view
     } : view
+  }
+}
+
+moaSchema.pre('remove', function(next) {
+  Dmpi.find({ 'moa': this.id }, deleteMongooseArray)
+  next();
+});
+
+
+function deleteMongooseArray(err, array) {
+  for (var i = 0; i < array.length; i++) {
+    array[i].remove();
   }
 }
 

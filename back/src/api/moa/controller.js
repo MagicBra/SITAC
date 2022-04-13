@@ -1,6 +1,5 @@
 import { success, notFound, authorOrAdmin } from '../../services/response/'
 import { Moa } from '.'
-import { Dmpi } from '../dmpi'
 
 export const create = ({ user, bodymen: { body } }, res, next) =>
   Moa.create({ ...body, author: user })
@@ -45,26 +44,6 @@ export const destroy = ({ user, params }, res, next) =>
   Moa.findById(params.id)
     .then(notFound(res))
     .then(authorOrAdmin(res, user, 'author'))
-    .then((moa) => moa ? deleteDependencies(moa) : null)
+    .then((moa) => moa ? moa.remove() : null)
     .then(success(res, 204))
     .catch(next)
-
-
-
-// Suppression des objets qui font référence à la campagne détruite
-function deleteDependencies(moa) {
-  Dmpi.find({ 'moa': moa.id }, deleteMongooseArray)
-  return moa.remove();
-}
-
-
-function deleteMongooseArray(err, array) {
-  for (var i = 0; i < array.length; i++) {
-    var element = array[i];
-    if(typeof element.deleteDependencies === "function"){
-      element.deleteDependencies(element);
-    } else {
-      element.remove();
-    }
-  }
-}

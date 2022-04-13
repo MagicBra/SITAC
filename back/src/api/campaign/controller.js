@@ -1,8 +1,5 @@
 import { success, notFound, authorOrAdmin } from '../../services/response/'
 import { Campaign } from '.'
-import { Pak } from '../pak'
-import { Opportunity } from '../opportunity'
-import { Homeplate } from '../homeplate'
 
 export const create = ({ user, bodymen: { body } }, res, next) =>
   Campaign.create({ ...body, author: user })
@@ -44,27 +41,6 @@ export const destroy = ({ user, params }, res, next) =>
   Campaign.findById(params.id)
     .then(notFound(res))
     .then(authorOrAdmin(res, user, 'author'))
-    .then((campaign) => campaign ? deleteDependencies(campaign) : null)
+    .then((campaign) => campaign ? campaign.remove() : null)
     .then(success(res, 204))
     .catch(next)
-
-
-// Suppression des objets qui font référence à la campagne détruite
-function deleteDependencies(campaign) {
-  Pak.find({ 'campaign': campaign.id }, deleteMongooseArray)
-  Opportunity.find({ 'campaign': campaign.id }, deleteMongooseArray)
-  Homeplate.find({ 'campaign': campaign.id }, deleteMongooseArray)
-  return campaign.remove();
-}
-
-
-function deleteMongooseArray(err, array) {
-  for (var i = 0; i < array.length; i++) {
-    var element = array[i];
-    if(typeof element.deleteDependencies === "function"){
-      element.deleteDependencies(element);
-    } else {
-      element.remove();
-    }
-  }
-}
