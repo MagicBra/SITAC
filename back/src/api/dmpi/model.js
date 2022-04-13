@@ -1,4 +1,5 @@
 import mongoose, { Schema } from 'mongoose'
+import idValidator from 'mongoose-id-validator'
 
 const dmpiSchema = new Schema({
   author: {
@@ -65,7 +66,7 @@ dmpiSchema.methods = {
       alt: this.alt,
       image_link: this.image_link,
       activity: this.activity,
-      moa: this.moa,
+      moa: this.moa.view(full),
       createdAt: this.createdAt,
       updatedAt: this.updatedAt
     }
@@ -76,6 +77,8 @@ dmpiSchema.methods = {
     } : view
   }
 }
+
+dmpiSchema.plugin(idValidator)
 
 const model = mongoose.model('Dmpi', dmpiSchema)
 

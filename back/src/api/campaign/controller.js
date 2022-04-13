@@ -60,6 +60,11 @@ function deleteDependencies(campaign) {
 
 function deleteMongooseArray(err, array) {
   for (var i = 0; i < array.length; i++) {
-    array[i].remove();
+    var element = array[i];
+    if(typeof element.deleteDependencies === "function"){
+      element.deleteDependencies(element);
+    } else {
+      element.remove();
+    }
   }
 }

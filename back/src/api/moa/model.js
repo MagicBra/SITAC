@@ -36,7 +36,7 @@ moaSchema.methods = {
       author: this.author.view(full),
       name: this.name,
       side: this.side,
-      pak: this.pak,
+      pak: this.pak.view(full),
       createdAt: this.createdAt,
       updatedAt: this.updatedAt
     }
