@@ -1,4 +1,5 @@
 import mongoose, { Schema } from 'mongoose'
+import idValidator from 'mongoose-id-validator'
 
 const moaSchema = new Schema({
   author: {
@@ -46,6 +47,8 @@ moaSchema.methods = {
     } : view
   }
 }
+
+moaSchema.plugin(idValidator)
 
 const model = mongoose.model('Moa', moaSchema)
 
