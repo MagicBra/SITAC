@@ -756,6 +756,372 @@
 			]
 		},
 		{
+			"name": "Package",
+			"item": [
+				{
+					"name": "Retrieve package",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{public_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/pkgs/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"pkgs",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "61f417fee806a1381c375ef0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve packages",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/pkgs",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"pkgs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create package",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"numero\": \"Package 3\",\r\n    \"package_leader\": \"jkdhfsdf\",\r\n    \"is_flying\": \"true\",\r\n    \"mission_nature\": \"dfdf\",\r\n    \"mission_cible\": \"skfsdj\",\r\n    \"mission_description\": \"dfd\",\r\n    \"mission_TOT\": \"ejdfd\",\r\n    \"mission_TOS\": \"dfdf\",\r\n    \"mission_time_margin\": \"skjdfdshfj\",\r\n    \"campaign\": \"625753f3ba1bf71dbcd2337e\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/pkgs",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"pkgs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update package",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"numero\": \"Package 3\",\r\n    \"package_leader\": \"jkdhfsdf\",\r\n    \"is_flying\": \"true\",\r\n    \"mission_nature\": \"dfdf\",\r\n    \"mission_cible\": \"skfsdj\",\r\n    \"mission_description\": \"dfd\",\r\n    \"mission_TOT\": \"ejdfd\",\r\n    \"mission_TOS\": \"dfdf\",\r\n    \"mission_time_margin\": \"skjdfdshfj\",\r\n    \"campaign\": \"625753f3ba1bf71dbcd2337e\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/pkgs/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"pkgs",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "62582f297329b71664c98079"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete package",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/pkgs/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"pkgs",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "6204e36aa00e391840558c5f"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Flight",
+			"item": [
+				{
+					"name": "Retrieve flight",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{public_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/flights/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"flights",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "61f417fee806a1381c375ef0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve flights",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/flights",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"flights"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create flight",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"iff_m1\": \"liuui\",\r\n    \"iff_m3\": \"jhgjhhg\",\r\n    \"cypher_canal\": \"canal1\",\r\n    \"pkg\": \"62582f297329b71664c98079\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/flights",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"flights"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update flight",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"iff_m1\": \"liuui\",\r\n    \"iff_m3\": \"jhgjhhg\",\r\n    \"cypher_canal\": \"canal1\",\r\n    \"pkg\": \"62582f297329b71664c98079\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/flights/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"flights",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "62582f297329b71664c98079"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete flight",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/flights/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"flights",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "6204e36aa00e391840558c5f"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Homeplate",
 			"item": [
 				{
