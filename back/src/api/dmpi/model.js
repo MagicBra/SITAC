@@ -1,6 +1,9 @@
 import mongoose, { Schema } from 'mongoose'
 import idValidator from 'mongoose-id-validator'
 
+
+const values = ['faible', 'haut', 'bas']
+
 const dmpiSchema = new Schema({
   author: {
     type: Schema.ObjectId,
@@ -17,7 +20,8 @@ const dmpiSchema = new Schema({
   },
   value: {
     type: String,
-    required: true
+    required: true,
+    enum: values
   },
   type: {
     type: String,
