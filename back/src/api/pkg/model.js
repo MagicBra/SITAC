@@ -1,6 +1,8 @@
 import mongoose, { Schema } from 'mongoose'
 import idValidator from 'mongoose-id-validator'
 
+import Flight from '../flight'
+
 const pkgSchema = new Schema({
   author: {
     type: Schema.ObjectId,
@@ -67,6 +69,19 @@ pkgSchema.methods = {
       ...view
       // add properties for a full view
     } : view
+  }
+}
+
+pkgSchema.pre('remove', function(next) {
+  Flight.find({ 'pkg': this.id }, deleteMongooseArray)
+
+  next();
+});
+
+
+function deleteMongooseArray(err, array) {
+  for (var i = 0; i < array.length; i++) {
+    array[i].remove();
   }
 }
 

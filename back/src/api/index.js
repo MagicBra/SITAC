@@ -10,6 +10,7 @@ import moa from './moa'
 import dmpi from './dmpi'
 import escadron from './escadron'
 import pkg from './pkg'
+import flight from './flight'
 
 const router = new Router()
 
@@ -47,5 +48,6 @@ router.use('/moas', moa)
 router.use('/dmpis', dmpi)
 router.use('/escadrons', escadron)
 router.use('/pkgs', pkg)
+router.use('/flights', flight)
 
 export default router
