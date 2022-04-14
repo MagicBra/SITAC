@@ -1,0 +1,1952 @@
+{
+	"info": {
+		"_postman_id": "dbd1bad3-4d27-47c6-b035-bd511002ba0b",
+		"name": "SITAC-API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Reset password",
+			"item": [
+				{
+					"name": "reset password (send mail)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{master_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"tancfire@laposte.net\",\r\n    \"link\": \"http://example.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/password-resets",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"password-resets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "reset password admin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"tancfire@laposte.net\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/password-resets/admin",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"password-resets",
+								"admin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Send token",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{master_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/password-resets/:token",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"password-resets",
+								":token"
+							],
+							"variable": [
+								{
+									"key": "token",
+									"value": "pqw9WDOWIbu1iiOVFduUlYdLs0kI0AFl"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Send new password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{master_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"password\": \"test124\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/password-resets/:token",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"password-resets",
+								":token"
+							],
+							"variable": [
+								{
+									"key": "token",
+									"value": "pqw9WDOWIbu1iiOVFduUlYdLs0kI0AFl"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Authenticate admin",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "admin@gmail.com",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "test123",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/auth",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Authenticate",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "test123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "user@gmail.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"access_token\":  \"{{master_token}}\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/auth",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Authenticate facebook",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "test123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "tanc.geant@gmail.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"access_token\":  \"{{master_token}}\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/facebook",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"facebook"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Retrieve current user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users/me",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve user",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{master_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"user@gmail.com\",\r\n    \"password\": \"test123\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create admin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{master_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"admin@gmail.com\",\r\n    \"password\": \"test123\",\r\n    \"role\": \"admin\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update password",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/users/:id/password",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								":id",
+								"password"
+							],
+							"variable": [
+								{
+									"key": "id"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"user@gmail.com\",\r\n    \"password\": \"\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/users/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "62052ab04a3ba630fc4c07a5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/users/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "6204e03dc563242438dd668e"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Campaign",
+			"item": [
+				{
+					"name": "Retrieve campaign",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{public_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/campaigns/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"campaigns",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "61f417fee806a1381c375ef0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve campaigns",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/campaigns",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"campaigns"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create campaign",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Campagne 3\",\r\n    \"description\": \"Un deux trois.\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/campaigns",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"campaigns"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update campaign",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/campaign/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"campaign",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete campaign",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/campaigns/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"campaigns",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "6257531c74bd2e331c0360e4"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Homeplate",
+			"item": [
+				{
+					"name": "Retrieve homeplate",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{public_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/homeplates/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"homeplates",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "61f417fee806a1381c375ef0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve homeplates",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/homeplates",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"homeplates"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create homeplate",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Homeplate 3\",\r\n    \"description\": \"Un deux trois.\",\r\n    \"campaign\": \"625753f3ba1bf71dbcd2337e\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/homeplates",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"homeplates"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update homeplate",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Homeplate 3\",\r\n    \"description\": \"Pouet 1/2\",\r\n    \"campaign\": \"625753f3ba1bf71dbcd2337e\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/homeplates/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"homeplates",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "625815580764c72d6c545335"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete homeplate",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/homeplates/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"homeplates",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "6204e36aa00e391840558c5f"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Escadron",
+			"item": [
+				{
+					"name": "Retrieve escadron",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{public_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/escadrons/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"escadrons",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "61f417fee806a1381c375ef0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve escadrons",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/escadrons",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"escadrons"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create escadron",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Esacdron 3\",\r\n    \"desc\": \"Un deux trois.\",\r\n    \"is_plane\": \"true\",\r\n    \"is_heli\": \"true\",\r\n    \"is_2D\": \"false\",\r\n    \"planes_available\": 2,\r\n    \"planes_repair\": 3,\r\n    \"planes_destroyed\": 0,\r\n    \"combat_level\": \"test\",\r\n    \"missions_types\": \"type 1\",\r\n    \"homeplate\": \"625815580764c72d6c545335\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/escadrons",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"escadrons"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update escadron",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Esacdron 3\",\r\n    \"desc\": \"Un deux trois.\",\r\n    \"is_plane\": \"true\",\r\n    \"is_heli\": \"true\",\r\n    \"is_2D\": \"false\",\r\n    \"planes_available\": 2,\r\n    \"planes_repair\": 3,\r\n    \"planes_destroyed\": 0,\r\n    \"combat_level\": \"test\",\r\n    \"missions_types\": \"type 1\",\r\n    \"homeplate\": \"625815580764c72d6c545335\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/escadrons/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"escadrons",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "625815580764c72d6c545335"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete escadron",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/escadrons/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"escadrons",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "6204e36aa00e391840558c5f"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Pak",
+			"item": [
+				{
+					"name": "Retrieve pak",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{public_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/paks/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"paks",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "62083af6f94e9344546fc6d8"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve paks",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/paks",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"paks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve paks by campaign id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/paks?campaign=6204e0a0c563242438dd669c",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"paks"
+							],
+							"query": [
+								{
+									"key": "campaign",
+									"value": "6204e0a0c563242438dd669c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create pak",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"PAK MAN 4\",\r\n    \"campaign\": \"625753f3ba1bf71dbcd2337e\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/paks",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"paks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update pak",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/paks/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"paks",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete pak",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/paks/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"paks",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "6257513f06bd915c18ccda93"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Moa",
+			"item": [
+				{
+					"name": "Retrieve moa",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{public_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/moas/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"moas",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "62574ff66f43381dfc2e29cb"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve moas",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/moas",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"moas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve moas by pak id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/moas?pak=6204e0a0c563242438dd669c",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"moas"
+							],
+							"query": [
+								{
+									"key": "pak",
+									"value": "6204e0a0c563242438dd669c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create moa",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"MOA 1\",\r\n    \"side\": \"pouet\",\r\n    \"pak\": \"6258122c65f34127504ed300\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/moas",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"moas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update moa",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/moas/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"moas",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete moa",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/moas/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"moas",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "625753ffba1bf71dbcd23386"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Dmpi",
+			"item": [
+				{
+					"name": "Retrieve dmpi",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{public_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/dmpis/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"dmpis",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "62083af6f94e9344546fc6d8"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve dmpis",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/dmpis",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"dmpis"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create dmpi",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"MOA 1\",\r\n    \"description\": \"pouet\",\r\n    \"value\":\"faible\",\r\n    \"type\": \"poet\",\r\n    \"coord_DMS\": \"22344\",\r\n    \"alt\": \"dzkjer\",\r\n    \"image_link\": \"fkdskdjsj\",\r\n    \"activity\": \"chouette\",\r\n    \"moa\": \"6258123565f34127504ed305\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/dmpis",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"dmpis"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update dmpi",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/dmpis/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"dmpis",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete dmpi",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/dmpis/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"dmpis",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "6208306c7e52011b54aa0f44"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Opportunity",
+			"item": [
+				{
+					"name": "Retrieve opportunity",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{public_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/opportunities/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"opportunities",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "620012b800eef61ab0e1f0df"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve opportunities",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/opportunities",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"opportunities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve opportunities by campaign id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/opportunities?campaign=6204e36aa00e391840558c5f",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"opportunities"
+							],
+							"query": [
+								{
+									"key": "campaign",
+									"value": "6204e36aa00e391840558c5f"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create opportunity",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"test\",\r\n    \"description\": \"test\",\r\n    \"is_VEH\": true,\r\n    \"is_SAM\" : true,\r\n    \"is_CSAR\": false,\r\n    \"is_UCAS\": false,\r\n    \"priority\": \"low\",\r\n    \"age\": 20,\r\n    \"coord_DMS\": \"test\",\r\n    \"alt\": 200,\r\n    \"campaign\": \"6204e36aa00e391840558c5f\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/opportunities",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"opportunities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update opportunity",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/opportunities/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"opportunities",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete opportunity",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/opportunities/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"opportunities",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "61f417fee806a1381c375ef0"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
