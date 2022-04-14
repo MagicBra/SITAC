@@ -1,6 +1,8 @@
 import mongoose, { Schema } from 'mongoose'
 import idValidator from 'mongoose-id-validator'
 
+import Escadron from '../escadron'
+
 const homeplateSchema = new Schema({
   author: {
     type: Schema.ObjectId,
@@ -43,6 +45,18 @@ homeplateSchema.methods = {
       ...view
       // add properties for a full view
     } : view
+  }
+}
+
+homeplateSchema.pre('remove', function(next) {
+  Escadron.find({ 'homeplate': this.id }, deleteMongooseArray)
+  next();
+});
+
+
+function deleteMongooseArray(err, array) {
+  for (var i = 0; i < array.length; i++) {
+    array[i].remove();
   }
 }
 

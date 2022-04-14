@@ -8,6 +8,7 @@ import opportunity from './opportunity'
 import homeplate from './homeplate'
 import moa from './moa'
 import dmpi from './dmpi'
+import escadron from './escadron'
 
 const router = new Router()
 
@@ -43,5 +44,6 @@ router.use('/opportunities', opportunity)
 router.use('/homeplates', homeplate)
 router.use('/moas', moa)
 router.use('/dmpis', dmpi)
+router.use('/escadrons', escadron)
 
 export default router
