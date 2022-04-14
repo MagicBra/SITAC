@@ -3,6 +3,7 @@ import mongoose, { Schema } from 'mongoose'
 import { Pak } from '../pak'
 import { Opportunity } from '../opportunity'
 import { Homeplate } from '../homeplate'
+import { Pkg } from '../pkg'
 
 const campaignSchema = new Schema({
   author: {
@@ -50,6 +51,7 @@ campaignSchema.pre('remove', function(next) {
   Pak.find({ 'campaign': this.id }, deleteMongooseArray)
   Opportunity.find({ 'campaign': this.id }, deleteMongooseArray)
   Homeplate.find({ 'campaign': this.id }, deleteMongooseArray)
+  Pkg.find({ 'campaign': this.id }, deleteMongooseArray)
 
   next();
 });

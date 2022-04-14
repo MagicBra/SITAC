@@ -9,6 +9,7 @@ import homeplate from './homeplate'
 import moa from './moa'
 import dmpi from './dmpi'
 import escadron from './escadron'
+import pkg from './pkg'
 
 const router = new Router()
 
@@ -45,5 +46,6 @@ router.use('/homeplates', homeplate)
 router.use('/moas', moa)
 router.use('/dmpis', dmpi)
 router.use('/escadrons', escadron)
+router.use('/pkgs', pkg)
 
 export default router
