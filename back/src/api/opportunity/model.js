@@ -76,7 +76,7 @@ opportunitySchema.methods = {
       age: this.age,
       coord_DMS: this.coord_DMS,
       alt: this.alt,
-      campaign: this.campaign.view(full), // récupérer la vue de campagne
+      campaign: this.campaign, // récupérer la vue de campagne
       createdAt: this.createdAt,
       updatedAt: this.updatedAt
     }

@@ -11,7 +11,6 @@ export const index = ({ querymen: { query, select, cursor } }, res, next) =>
   Moa.count(query)
     .then(count => Moa.find(query, select, cursor)
       .populate('author')
-      .populate('pak')
       .then((moas) => ({
         count,
         rows: moas.map((moa) => moa.view())
@@ -23,7 +22,6 @@ export const index = ({ querymen: { query, select, cursor } }, res, next) =>
 export const show = ({ params }, res, next) =>
   Moa.findById(params.id)
     .populate('author')
-    .populate('pak')
     .then(notFound(res))
     .then((moa) => moa ? moa.view() : null)
     .then(success(res))
@@ -32,7 +30,6 @@ export const show = ({ params }, res, next) =>
 export const update = ({ user, bodymen: { body }, params }, res, next) =>
   Moa.findById(params.id)
     .populate('author')
-    .populate('pak')
     .then(notFound(res))
     .then(authorOrAdmin(res, user, 'author'))
     .then((moa) => moa ? Object.assign(moa, body).save() : null)

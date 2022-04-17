@@ -33,7 +33,7 @@ pakSchema.methods = {
       id: this.id,
       author: this.author ? this.author.view(false) : {"name": "Deleted user"},
       name: this.name,
-      campaign: this.campaign.view(full), // récupérer la vue de campagne
+      campaign: this.campaign,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt
     }

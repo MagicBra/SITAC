@@ -38,7 +38,7 @@ flightSchema.methods = {
       iff_m1: this.iff_m1,
       iff_m3: this.iff_m3,
       cypher_canal: this.cypher_canal,
-      pkg: this.pkg.view(full), // récupérer la vue du package
+      pkg: this.pkg,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt
     }

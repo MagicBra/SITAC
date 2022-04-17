@@ -11,7 +11,6 @@ export const index = ({ querymen: { query, select, cursor } }, res, next) =>
   Pak.count(query)
     .then(count => Pak.find(query, select, cursor)
       .populate('author')
-      .populate('campaign')
       .then((paks) => ({
         count,
         rows: paks.map((pak) => pak.view())
@@ -23,7 +22,6 @@ export const index = ({ querymen: { query, select, cursor } }, res, next) =>
 export const show = ({ params }, res, next) =>
   Pak.findById(params.id)
     .populate('author')
-    .populate('campaign')
     .then(notFound(res))
     .then((pak) => pak ? pak.view() : null)
     .then(success(res))
@@ -32,7 +30,6 @@ export const show = ({ params }, res, next) =>
 export const update = ({ user, bodymen: { body }, params }, res, next) =>
   Pak.findById(params.id)
     .populate('author')
-    .populate('campaign')
     .then(notFound(res))
     .then(authorOrAdmin(res, user, 'author'))
     .then((pak) => pak ? Object.assign(pak, body).save() : null)

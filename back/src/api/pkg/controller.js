@@ -11,7 +11,6 @@ export const index = ({ querymen: { query, select, cursor } }, res, next) =>
   Pkg.count(query)
     .then(count => Pkg.find(query, select, cursor)
       .populate('author')
-      .populate('campaign')
       .then((pkgs) => ({
         count,
         rows: pkgs.map((pkg) => pkg.view())
@@ -23,7 +22,6 @@ export const index = ({ querymen: { query, select, cursor } }, res, next) =>
 export const show = ({ params }, res, next) =>
   Pkg.findById(params.id)
     .populate('author')
-    .populate('campaign')
     .then(notFound(res))
     .then((pkg) => pkg ? pkg.view() : null)
     .then(success(res))
@@ -32,7 +30,6 @@ export const show = ({ params }, res, next) =>
 export const update = ({ user, bodymen: { body }, params }, res, next) =>
   Pkg.findById(params.id)
     .populate('author')
-    .populate('campaign')
     .then(notFound(res))
     .then(authorOrAdmin(res, user, 'author'))
     .then((pkg) => pkg ? Object.assign(pkg, body).save() : null)

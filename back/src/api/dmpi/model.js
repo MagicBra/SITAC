@@ -70,7 +70,7 @@ dmpiSchema.methods = {
       alt: this.alt,
       image_link: this.image_link,
       activity: this.activity,
-      moa: this.moa.view(full),
+      moa: this.moa,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt
     }

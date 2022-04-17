@@ -70,7 +70,7 @@ escadronSchema.methods = {
       planes_destroyed: this.planes_destroyed,
       combat_level: this.combat_level,
       missions_types: this.missions_types,
-      homeplate: this.homeplate.view(full),
+      homeplate: this.homeplate,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt
     }

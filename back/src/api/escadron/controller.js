@@ -11,7 +11,6 @@ export const index = ({ querymen: { query, select, cursor } }, res, next) =>
   Escadron.count(query)
     .then(count => Escadron.find(query, select, cursor)
       .populate('author')
-      .populate('homeplate')
       .then((escadrons) => ({
         count,
         rows: escadrons.map((escadron) => escadron.view())
@@ -23,7 +22,6 @@ export const index = ({ querymen: { query, select, cursor } }, res, next) =>
 export const show = ({ params }, res, next) =>
   Escadron.findById(params.id)
     .populate('author')
-    .populate('homeplate')
     .then(notFound(res))
     .then((escadron) => escadron ? escadron.view() : null)
     .then(success(res))
@@ -32,7 +30,6 @@ export const show = ({ params }, res, next) =>
 export const update = ({ user, bodymen: { body }, params }, res, next) =>
   Escadron.findById(params.id)
     .populate('author')
-    .populate('homeplate')
     .then(notFound(res))
     .then(authorOrAdmin(res, user, 'author'))
     .then((escadron) => escadron ? Object.assign(escadron, body).save() : null)

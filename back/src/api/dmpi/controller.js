@@ -11,7 +11,6 @@ export const index = ({ querymen: { query, select, cursor } }, res, next) =>
   Dmpi.count(query)
     .then(count => Dmpi.find(query, select, cursor)
       .populate('author')
-      .populate('moa')
       .then((dmpis) => ({
         count,
         rows: dmpis.map((dmpi) => dmpi.view())
@@ -23,7 +22,6 @@ export const index = ({ querymen: { query, select, cursor } }, res, next) =>
 export const show = ({ params }, res, next) =>
   Dmpi.findById(params.id)
     .populate('author')
-    .populate('moa')
     .then(notFound(res))
     .then((dmpi) => dmpi ? dmpi.view() : null)
     .then(success(res))
@@ -32,7 +30,6 @@ export const show = ({ params }, res, next) =>
 export const update = ({ user, bodymen: { body }, params }, res, next) =>
   Dmpi.findById(params.id)
     .populate('author')
-    .populate('moa')
     .then(notFound(res))
     .then(authorOrAdmin(res, user, 'author'))
     .then((dmpi) => dmpi ? Object.assign(dmpi, body).save() : null)

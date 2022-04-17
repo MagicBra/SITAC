@@ -60,7 +60,7 @@ pkgSchema.methods = {
       mission_description: this.mission_description,
       mission_TOT: this.mission_TOT,
       mission_time_margin: this.mission_time_margin,
-      campaign: this.campaign.view(full), // récupérer la vue de campagne
+      campaign: this.campaign, 
       createdAt: this.createdAt,
       updatedAt: this.updatedAt
     }

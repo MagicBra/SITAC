@@ -11,7 +11,6 @@ export const index = ({ querymen: { query, select, cursor } }, res, next) =>
   Opportunity.count(query)
     .then(count => Opportunity.find(query, select, cursor)
       .populate('author')
-      .populate('campaign')
       .then((opportunities) => ({
         count,
         rows: opportunities.map((opportunity) => opportunity.view())
@@ -23,7 +22,6 @@ export const index = ({ querymen: { query, select, cursor } }, res, next) =>
 export const show = ({ params }, res, next) =>
   Opportunity.findById(params.id)
     .populate('author')
-    .populate('campaign')
     .then(notFound(res))
     .then((opportunity) => opportunity ? opportunity.view() : null)
     .then(success(res))
@@ -32,7 +30,6 @@ export const show = ({ params }, res, next) =>
 export const update = ({ user, bodymen: { body }, params }, res, next) =>
   Opportunity.findById(params.id)
     .populate('author')
-    .populate('campaign')
     .then(notFound(res))
     .then(authorOrAdmin(res, user, 'author'))
     .then((opportunity) => opportunity ? Object.assign(opportunity, body).save() : null)

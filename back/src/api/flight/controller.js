@@ -11,7 +11,6 @@ export const index = ({ querymen: { query, select, cursor } }, res, next) =>
   Flight.count(query)
     .then(count => Flight.find(query, select, cursor)
       .populate('author')
-      .populate('pkg')
       .then((flights) => ({
         count,
         rows: flights.map((flight) => flight.view())
@@ -23,7 +22,6 @@ export const index = ({ querymen: { query, select, cursor } }, res, next) =>
 export const show = ({ params }, res, next) =>
   Flight.findById(params.id)
     .populate('author')
-    .populate('pkg')
     .then(notFound(res))
     .then((flight) => flight ? flight.view() : null)
     .then(success(res))
@@ -32,7 +30,6 @@ export const show = ({ params }, res, next) =>
 export const update = ({ user, bodymen: { body }, params }, res, next) =>
   Flight.findById(params.id)
     .populate('author')
-    .populate('pkg')
     .then(notFound(res))
     .then(authorOrAdmin(res, user, 'author'))
     .then((flight) => flight ? Object.assign(flight, body).save() : null)

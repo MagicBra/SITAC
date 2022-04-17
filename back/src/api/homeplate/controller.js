@@ -11,7 +11,6 @@ export const index = ({ querymen: { query, select, cursor } }, res, next) =>
 Homeplate.count(query)
     .then(count => Homeplate.find(query, select, cursor)
       .populate('author')
-      .populate('campaign')
       .then((homeplates) => ({
         count,
         rows: homeplates.map((homeplate) => homeplate.view())
@@ -23,7 +22,6 @@ Homeplate.count(query)
 export const show = ({ params }, res, next) =>
   Homeplate.findById(params.id)
     .populate('author')
-    .populate('campaign')
     .then(notFound(res))
     .then((homeplate) => homeplate ? homeplate.view() : null)
     .then(success(res))
@@ -32,7 +30,6 @@ export const show = ({ params }, res, next) =>
 export const update = ({ user, bodymen: { body }, params }, res, next) =>
   Homeplate.findById(params.id)
     .populate('author')
-    .populate('campaign')
     .then(notFound(res))
     .then(authorOrAdmin(res, user, 'author'))
     .then((homeplate) => homeplate ? Object.assign(homeplate, body).save() : null)

@@ -38,7 +38,7 @@ moaSchema.methods = {
       author: this.author ? this.author.view(false) : {"name": "Deleted user"},
       name: this.name,
       side: this.side,
-      pak: this.pak.view(full),
+      pak: this.pak,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt
     }
