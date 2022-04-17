@@ -1,8 +1,8 @@
 <template>
   <div>
-    <b-field label="Recherche" label-position="on-border">
+    <b-field :label="labelSearch" label-position="on-border">
       <b-input
-        placeholder="Nom"
+        :placeholder="placeholderSearch"
         type="search"
         v-model="searchQuery"
         @keyup.native.enter="refresh"
@@ -10,12 +10,12 @@
       ></b-input>
       <p class="control">
         <b-button class="button is-primary" @click="refresh"
-          >Rechercher</b-button
+          >{{labelButtonSearch}}</b-button
         >
       </p>
     </b-field>
     <section>
-      <b-button type="is-success" @click="create">Nouvelle campagne</b-button>
+      <b-button type="is-success" @click="create">{{labelButtonNew}}</b-button>
     </section>
 
     <section>
@@ -50,8 +50,8 @@
 
         <b-table-column field="actions" label="Actions" width="200" v-slot="props">
           <div class="buttons">
-                <b-button type="is-primary" @click="edit(props.row)" > edit </b-button>
-                <b-button type="is-danger" @click="remove(props.row)" > delete </b-button>
+                <b-button type="is-primary" @click="edit(props.row)" > <b-icon icon="pencil"></b-icon> </b-button>
+                <b-button type="is-danger" @click="remove(props.row)" > <b-icon icon="delete"></b-icon> </b-button>
                 </div>
             </b-table-column>
 
@@ -66,7 +66,9 @@
 import ApiHandlerService from "../services/ApiHandlerService";
 
 export default {
-  props: ["endpoint", "columns"],
+  props: ["endpoint", "columns", 
+  "labelSearch", "labelButtonSearch", "placeholderSearch"
+  ,"labelButtonNew"],
   data() {
     return {
       data: [],

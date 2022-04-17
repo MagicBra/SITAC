@@ -1,13 +1,17 @@
 <template>
   <section class="section">
-    <h1 class="title">Campaigns list</h1>
+    <h1 class="title">Liste des campagnes</h1>
 
      <TableAPI
      endpoint="campaigns"
+     labelSearch="Recherche"
+     labelButtonSearch="Rechercher"
+     placeholderSearch="Nom de la campagne"
+     labelButtonNew="Nouvelle campagne"
       :columns= "[
         {
           field: 'name',
-          label: 'Name',
+          label: 'Nom',
           sortable: true
         },
         {
@@ -17,7 +21,7 @@
         },
         {
           field: 'createdAt',
-          label: 'Created at',
+          label: 'Date de création',
           sortable: true
         }, 
       ]" />

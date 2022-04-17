@@ -92,19 +92,25 @@ export default {
     msg[403] = "Vous n'êtes pas autorisé";
     msg[404] = "Ressource introuvable";
 
+    // If token has expired, route to login page
+    if (error.response.status == 401 && router.currentRoute.path != config.routePathLogin){
+      if(!localStorage.token)
+        router.push(config.routePathLogin);
+      else
+      msg[401] = "Vous n'êtes pas autorisé";
+    }
+
     if (msgErrors != null)
       msgErrors.forEach(function callback(value, index) {
         msg[index] = value;
       });
+
 
     Toast.open({
       message: msg[status] !== undefined ? msg[status] : defaultError,
       type: "is-danger",
     });
 
-    // If token has expired, route to login page
-    if (error.response.status == 401 && router.currentRoute.path != config.routePathLogin)
-      router.push(config.routePathLogin);
   },
 
   generateParams(paramsJson){

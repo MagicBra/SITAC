@@ -74,6 +74,7 @@ export default {
         type: "is-success",
       });
       localStorage.token = data.token;
+      localStorage.user = data.user;
 
       window.dispatchEvent(
         new CustomEvent("foo-key-localstorage-changed", {
