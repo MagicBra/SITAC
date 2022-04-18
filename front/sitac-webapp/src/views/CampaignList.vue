@@ -20,6 +20,11 @@
           sortable: true
         },
         {
+          field: 'author[name]',
+          label: 'Auteur',
+          sortable: true
+        },
+        {
           field: 'createdAt',
           label: 'Date de création',
           sortable: true

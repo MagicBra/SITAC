@@ -53,6 +53,8 @@ export default {
       Toast.open({
         message: "Vous avez été déconnecté",
       });
+
+      this.$router.push("/");
     },
   }
 };

@@ -14,7 +14,7 @@
           <b-button 
           v-if="!readOnly"
           type="is-primary" @click="updateData()" >
-            Sauvegarder
+            {{labelButtonSave}}
           </b-button>
         </b-field>
       </div>
@@ -27,7 +27,7 @@ import { ToastProgrammatic as Toast } from "buefy";
 import ApiHandlerService from "../services/ApiHandlerService";
 
 export default {
-    props: ["endpoint","columns"],
+    props: ["endpoint","columns","redirect","labelButtonSave"],
   components: {},
   mounted() {
     this.isEdit = this.$route.params.id != "create";
@@ -37,7 +37,7 @@ export default {
       ApiHandlerService.getById(this.endpoint, this.id, {}, ({ data }) => {
         this.data = data;
 
-        this.readOnly = !(localStorage.user.role=='admin' || localStorage.user.id == data.author.id);
+        this.readOnly = !(ApiHandlerService.isCurrentUserAdmin() || JSON.parse(localStorage.user).id == data.author.id);
       });
     } else {
         this.readOnly = false;
@@ -78,9 +78,10 @@ export default {
             message: "Création réussi !",
             type: "is-success",
           });
+
+          this.$router.push(this.redirect);
         });
       }
-      this.$router.push("/"+this.endpoint+"/");
     },
   },
 };

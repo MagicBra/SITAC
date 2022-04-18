@@ -82,7 +82,12 @@ export default {
     });
   },
 
+  isCurrentUserAdmin(){
+    return JSON.parse(localStorage.user).role=='admin';
+  },
+
   toastError(error, msgErrors, config) {
+    console.log(error);
     var status = error.response.status;
 
     var defaultError = "Erreur inconnue";

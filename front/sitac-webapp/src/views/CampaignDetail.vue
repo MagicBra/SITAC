@@ -16,6 +16,8 @@
           type: 'textarea'
         },
       ]"
+      redirect="/campaigns/"
+      labelButtonSave="Sauvegarder"
       />
   </section>
 </template>

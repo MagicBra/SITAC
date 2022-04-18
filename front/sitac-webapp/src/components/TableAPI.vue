@@ -48,10 +48,16 @@
           {{ props.row[column.field] }}
         </b-table-column>
 
-        <b-table-column field="actions" label="Actions" width="200" v-slot="props">
+        <b-table-column 
+        field="actions" label="Actions" width="200" v-slot="props">
           <div class="buttons">
-                <b-button type="is-primary" @click="edit(props.row)" > <b-icon icon="pencil"></b-icon> </b-button>
-                <b-button type="is-danger" @click="remove(props.row)" > <b-icon icon="delete"></b-icon> </b-button>
+                <b-button type="is-primary" @click="edit(props.row)" > 
+                  <b-icon  v-if="!props.row.readOnly" icon="pencil"></b-icon> 
+                  <b-icon  v-if="props.row.readOnly" icon="eye-outline"></b-icon> 
+                  </b-button>
+                <b-button 
+                v-if="!props.row.readOnly"
+                type="is-danger" @click="remove(props.row)" > <b-icon icon="delete"></b-icon> </b-button>
                 </div>
             </b-table-column>
 
@@ -80,6 +86,7 @@ export default {
       page: 1,
       perPage: 10,
       searchQuery: "",
+      readOnly: true
     };
   },
   methods: {
@@ -120,6 +127,9 @@ export default {
               " " +
               new Date(item.createdAt).toLocaleTimeString())
           : (item.createdAt = "unknown");
+
+        // For each item, is user authorized to modify ?
+        item.readOnly = !(ApiHandlerService.isCurrentUserAdmin() || JSON.parse(localStorage.user).id == item.author.id);
 
         // Push to the table data
         this.data.push(item);
