@@ -67,6 +67,8 @@ export default {
             message: "Mise à jour réussi !",
             type: "is-success",
           });
+
+           this.$router.push(this.redirect);
         });
 
       } else {
