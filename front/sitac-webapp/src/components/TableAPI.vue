@@ -45,7 +45,7 @@
           v-slot="props"
           :sortable="column.sortable"
         >
-          {{ props.row[column.field] }}
+          {{ getValueField(props.row,column.field) }}
         </b-table-column>
 
         <b-table-column 
@@ -90,6 +90,23 @@ export default {
     };
   },
   methods: {
+
+    getValueField(row,field){
+
+      var fields = field.split(".");
+
+      console.log("fields="+fields)
+
+      var node = row[fields[0]];
+
+      for(var i=1;i<fields.length;i++){
+        console.log("field "+field);
+        node = node[fields[i]];
+      }
+
+      return node;
+
+    },
     /*
      * Load async data
      */
@@ -157,7 +174,7 @@ export default {
      * Handle sort event
      */
     onSort(field, order) {
-      this.sortField = field;
+      this.sortField = field.split(".")[0];
       this.sortOrder = order;
       this.total = 0;
       this.loadAsyncData();

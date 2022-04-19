@@ -17,7 +17,8 @@
         },
       ]"
       redirect="/campaigns/"
-      labelButtonSave="Sauvegarder"
+      labelButtonEdit="Sauvegarder"
+      labelButtonCreate="Créer"
       />
   </section>
 </template>

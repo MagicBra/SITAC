@@ -20,7 +20,7 @@
           sortable: true
         },
         {
-          field: 'author[name]',
+          field: 'author.name',
           label: 'Auteur',
           sortable: true
         },

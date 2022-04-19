@@ -13,8 +13,10 @@
         <b-field>
           <b-button 
           v-if="!readOnly"
-          type="is-primary" @click="updateData()" >
-            {{labelButtonSave}}
+          type="is-primary" 
+          @click="updateData()"
+          :loading="loading" >
+            {{ isEdit ? labelButtonEdit : labelButtonCreate }}
           </b-button>
         </b-field>
       </div>
@@ -27,9 +29,10 @@ import { ToastProgrammatic as Toast } from "buefy";
 import ApiHandlerService from "../services/ApiHandlerService";
 
 export default {
-    props: ["endpoint","columns","redirect","labelButtonSave"],
+    props: ["endpoint","columns","redirect","labelButtonEdit","labelButtonCreate"],
   components: {},
   mounted() {
+    this.loading = false;
     this.isEdit = this.$route.params.id != "create";
 
     if (this.isEdit) {
@@ -48,7 +51,8 @@ export default {
       id: `${this.$route.params.id}`,
       data: {},
       isEdit: true,
-      readOnly : true
+      readOnly : true,
+      loading : false
     };
   },
   methods: {
@@ -60,8 +64,10 @@ export default {
 
       if (this.isEdit) {
         // Mettre à jour les données
+        this.loading = true;
         ApiHandlerService.put(this.endpoint, this.id, body, ({ data }) => {
           this.data = data;
+          this.loading = false;
 
           Toast.open({
             message: "Mise à jour réussi !",
