@@ -1,4 +1,5 @@
 import mongoose, { Schema } from 'mongoose'
+import mongooseKeywords from 'mongoose-keywords'
 
 import { Pak } from '../pak'
 import { Opportunity } from '../opportunity'
@@ -62,6 +63,8 @@ function deleteMongooseArray(err, array) {
     array[i].remove();
   }
 }
+
+campaignSchema.plugin(mongooseKeywords, { paths: ['name'] })
 
 const model = mongoose.model('Campaign', campaignSchema)
 
