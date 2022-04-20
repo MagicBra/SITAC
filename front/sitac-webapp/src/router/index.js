@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import CampaignList from '../views/CampaignList.vue'
 import CampaignDetail from '../views/CampaignDetail.vue'
+import PakDetail from '../views/PakDetail.vue'
 
 Vue.use(VueRouter)
 
@@ -21,6 +22,11 @@ const routes = [
     path: '/campaigns/:id',
     name: 'CampaignDetail',
     component: CampaignDetail
+  },
+  {
+    path: '/campaigns/:idCampaign/paks/:id',
+    name: 'PakDetail',
+    component: PakDetail
   }
 ]
 

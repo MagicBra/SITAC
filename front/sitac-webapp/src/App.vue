@@ -36,7 +36,6 @@ export default {
   name: "App",
   components: {
     Header,
-    // SideMenu,
   },
   data() {
     return {

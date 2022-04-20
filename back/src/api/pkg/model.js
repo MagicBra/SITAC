@@ -1,7 +1,7 @@
 import mongoose, { Schema } from 'mongoose'
 import idValidator from 'mongoose-id-validator'
 
-import Flight from '../flight'
+import { Flight } from '../flight'
 
 const pkgSchema = new Schema({
   author: {

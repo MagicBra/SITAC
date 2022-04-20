@@ -29,7 +29,7 @@ import { ToastProgrammatic as Toast } from "buefy";
 import ApiHandlerService from "../services/ApiHandlerService";
 
 export default {
-    props: ["endpoint","columns","redirect","labelButtonEdit","labelButtonCreate"],
+    props: ["endpoint","columns","labelButtonEdit","labelButtonCreate", "customBody"],
   components: {},
   mounted() {
     this.loading = false;
@@ -57,10 +57,15 @@ export default {
   },
   methods: {
     updateData() {
-      var body = {
-        name: this.data.name,
-        description: this.data.description,
-      };
+
+      // Generate body with columns
+      var body = {};
+      this.columns.forEach(column => {
+        body[column.field] = this.data[column.field];
+      });
+
+      // Add custom body
+      Object.assign(body,this.customBody);
 
       if (this.isEdit) {
         // Mettre à jour les données
@@ -74,7 +79,7 @@ export default {
             type: "is-success",
           });
 
-           this.$router.push(this.redirect);
+           this.$router.back();
         });
 
       } else {
@@ -87,7 +92,7 @@ export default {
             type: "is-success",
           });
 
-          this.$router.push(this.redirect);
+          this.$router.back();
         });
       }
     },

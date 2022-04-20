@@ -74,7 +74,9 @@ import ApiHandlerService from "../services/ApiHandlerService";
 export default {
   props: ["endpoint", "columns", 
   "labelSearch", "labelButtonSearch", "placeholderSearch"
-  ,"labelButtonNew"],
+  ,"labelButtonNew"
+  , "customParams",
+  "redirectURL"],
   data() {
     return {
       data: [],
@@ -95,8 +97,6 @@ export default {
 
       var fields = field.split(".");
 
-      console.log("fields="+fields)
-
       var node = row[fields[0]];
 
       for(var i=1;i<fields.length;i++){
@@ -111,12 +111,15 @@ export default {
      * Load async data
      */
     loadAsyncData() {
-      const params = {
+      var params = {
         page: `${this.page}`,
         limit: `${this.perPage}`,
         sort: `${this.sortOrder == "desc" ? "-" : ""}${this.sortField}`,
         q: `${this.searchQuery}`,
       };
+
+      // Concat parameters with custom parameters
+      Object.assign(params,this.customParams);
 
       this.loading = true;
 
@@ -183,7 +186,7 @@ export default {
       this.loadAsyncData();
     },
     edit(row) {
-      this.$router.push("/" + this.endpoint + "/" + row.id);
+      this.$router.push(this.redirectURL + "/"+ row.id);
     },
     remove(row) {
       ApiHandlerService.delete(
@@ -193,7 +196,7 @@ export default {
       );
     },
     create() {
-      this.$router.push("/" + this.endpoint + "/create");
+      this.$router.push(this.redirectURL + "/create");
     },
   },
   filters: {

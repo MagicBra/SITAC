@@ -1,9 +1,14 @@
 <template>
   <section class="section">
+    <b-breadcrumb separator="has-succeeds-separator">
+      <b-breadcrumb-item tag='router-link' to="/campaigns" active>Campagnes</b-breadcrumb-item>
+    </b-breadcrumb>
+
     <h1 class="title">Liste des campagnes</h1>
 
      <TableAPI
      endpoint="campaigns"
+     :customParams="[]"
      labelSearch="Recherche"
      labelButtonSearch="Rechercher"
      placeholderSearch="Nom de la campagne"
@@ -29,7 +34,8 @@
           label: 'Date de création',
           sortable: true
         }, 
-      ]" />
+      ]" 
+      redirectURL="/campaigns" />
   </section>
 </template>
 
