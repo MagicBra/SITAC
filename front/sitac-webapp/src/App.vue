@@ -4,6 +4,7 @@
       rel="stylesheet"
       href="https://cdn.materialdesignicons.com/5.3.45/css/materialdesignicons.min.css"
     />
+    <Navbar />
     <Header />
     <router-view />
   </div>
@@ -31,11 +32,13 @@
 
 <script>
 import Header from "./components/Header.vue";
+import Navbar from './components/Navbar.vue';
 
 export default {
   name: "App",
   components: {
     Header,
+    Navbar,
   },
   data() {
     return {

@@ -2,7 +2,7 @@
   <section class="section">
     <b-breadcrumb separator="has-succeeds-separator">
       <b-breadcrumb-item tag='router-link' to="/campaigns">Campagnes</b-breadcrumb-item>
-      <b-breadcrumb-item tag='router-link' :to="'/campaigns'+$route.params.id" active>Détail campagne</b-breadcrumb-item>
+      <b-breadcrumb-item tag='router-link' :to="'/campaigns/'+$route.params.id" active>Détail campagne</b-breadcrumb-item>
     </b-breadcrumb>
 
     <h1 class="title">Détail Campagne</h1>
@@ -53,7 +53,7 @@
         }, 
       ]" 
       :customBody="{}"
-      :redirectURL= "'/campaigns/' + this.$route.params.id + '/paks'"
+      :redirectURL= "this.$route.path + '/paks'"
       />
       </div>
   </section>

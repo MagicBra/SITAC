@@ -1,26 +1,32 @@
 <template>
-  <section class="hero is-primary">
-    <div class="hero-head">
-      <div id="navMenu" class="navbar-menu">
-        <div class="navbar-end">
-          <div class="navbar-item">
-            
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="hero-body">
-      <p class="title">SITAC</p>
-      <p class="subtitle">Situation Tactique</p>
-    </div>
-  </section>
+    <b-navbar>
+        <template #brand>
+            <b-navbar-item tag="router-link" :to="{ path: '/' }">
+                <img
+                    src="https://raw.githubusercontent.com/buefy/buefy/dev/static/img/buefy-logo.png"
+                    alt="SITAC"
+                >
+            </b-navbar-item>
+        </template>
+
+        <template #end>
+            <b-navbar-item tag="div">
+                <div class="buttons">
+              <a v-if="isToken" class="button is-danger is-light" @click="deconnection">Déconnexion</a>
+              <a v-if="!isToken" class="button is-primary is-light" @click="connection">Connexion</a>
+            </div>
+            </b-navbar-item>
+        </template>
+    </b-navbar>
 </template>
 
 <script>
+
 import { ToastProgrammatic as Toast } from "buefy";
 
 export default {
-  name: "Header",
+  components: { },
+  name: "Navbar",
   mounted() {
   window.addEventListener('foo-key-localstorage-changed', () => {
     this.isToken = localStorage.token ? true : false;
