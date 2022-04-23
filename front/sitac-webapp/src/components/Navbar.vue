@@ -1,41 +1,73 @@
 <template>
-    <b-navbar>
-        <template #brand>
-            <b-navbar-item tag="router-link" :to="{ path: '/' }">
-                <img
-                    src="https://raw.githubusercontent.com/buefy/buefy/dev/static/img/buefy-logo.png"
-                    alt="SITAC"
-                >
-            </b-navbar-item>
-        </template>
+  <b-navbar>
+    <template #brand>
+      <b-navbar-item tag="router-link" :to="{ path: '/' }">
+        <img
+          src="https://raw.githubusercontent.com/buefy/buefy/dev/static/img/buefy-logo.png"
+          alt="SITAC"
+        />
+      </b-navbar-item>
+    </template>
 
-        <template #end>
-            <b-navbar-item tag="div">
-                <div class="buttons">
-              <a v-if="isToken" class="button is-danger is-light" @click="deconnection">Déconnexion</a>
-              <a v-if="!isToken" class="button is-primary is-light" @click="connection">Connexion</a>
-            </div>
+    <template #end>
+      <div class="navbar-menu">
+        <b-navbar-item tag="div">
+                <div class="buttons" v-if="!isToken" >
+                    <a class="button is-primary is-light" @click="connection">Connexion</a>
+                </div>
             </b-navbar-item>
-        </template>
-    </b-navbar>
+
+        <div class="navbar-end" v-if="isToken">
+          <b-dropdown
+            position="is-bottom-left"
+            append-to-body
+            aria-role="menu"
+          >
+            <template #trigger>
+              <a class="navbar-item" role="button">
+                <b-image
+                  :src="imageUser"
+                  :rounded="true"
+                ></b-image>
+                <span> &ensp; {{ nameUser }}</span>
+                <b-icon icon="menu-down"></b-icon>
+              </a>
+            </template>
+            <b-dropdown-item href="/profile">
+              <b-icon icon="account"></b-icon>
+              Profile
+            </b-dropdown-item>
+            <hr class="dropdown-divider" aria-role="menuitem">
+            <b-dropdown-item @click="deconnection" class="dropdown-item has-text-danger">
+              <b-icon icon="logout"></b-icon>
+              <strong>Déconnexion</strong>
+            </b-dropdown-item>
+          </b-dropdown>
+        </div>
+      </div>
+    </template>
+  </b-navbar>
 </template>
 
 <script>
-
 import { ToastProgrammatic as Toast } from "buefy";
 
 export default {
-  components: { },
+  components: {},
   name: "Navbar",
   mounted() {
-  window.addEventListener('foo-key-localstorage-changed', () => {
-    this.isToken = localStorage.token ? true : false;
-  });
-  console.log(localStorage.token);
-},
+    window.addEventListener("foo-key-localstorage-changed", () => {
+      this.isToken = localStorage.token ? true : false;
+      this.nameUser = localStorage.token ? JSON.parse(localStorage.user).name : "";
+      this.imageUser = localStorage.token ? JSON.parse(localStorage.user).picture : ""
+    });
+    console.log(localStorage.token);
+  },
   data() {
     return {
       isToken: localStorage.token ? true : false,
+      nameUser: localStorage.token ? JSON.parse(localStorage.user).name : "",
+      imageUser: localStorage.token ? JSON.parse(localStorage.user).picture : "",
     };
   },
   methods: {
@@ -59,6 +91,6 @@ export default {
 
       this.$router.push("/");
     },
-  }
+  },
 };
 </script>
