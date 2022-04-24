@@ -5,6 +5,7 @@ import CampaignList from '../views/CampaignList.vue'
 import CampaignDetail from '../views/CampaignDetail.vue'
 import PakDetail from '../views/PakDetail.vue'
 import MoaDetail from '../views/MoaDetail.vue'
+import Profile from '../views/Profile.vue'
 
 Vue.use(VueRouter)
 
@@ -13,6 +14,11 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/profile/:id',
+    name: 'Profile',
+    component: Profile
   },
   {
     path: '/campaigns',
@@ -31,7 +37,7 @@ const routes = [
   },
   {
     path: '/campaigns/:idCampaign/paks/:idPak/moas/:id',
-    name: 'PakDetail',
+    name: 'MoaDetail',
     component: MoaDetail
   }
 ]

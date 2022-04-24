@@ -28,14 +28,17 @@
                 <b-image
                   :src="imageUser"
                   :rounded="true"
+                  custom-class="image is-32x32"
                 ></b-image>
                 <span> &ensp; {{ nameUser }}</span>
                 <b-icon icon="menu-down"></b-icon>
               </a>
             </template>
-            <b-dropdown-item href="/profile">
+            <b-dropdown-item has-link>
+              <router-link :to="'/profile/me'" exact>
               <b-icon icon="account"></b-icon>
               Profile
+              </router-link>
             </b-dropdown-item>
             <hr class="dropdown-divider" aria-role="menuitem">
             <b-dropdown-item @click="deconnection" class="dropdown-item has-text-danger">
@@ -61,7 +64,7 @@ export default {
       this.nameUser = localStorage.token ? JSON.parse(localStorage.user).name : "";
       this.imageUser = localStorage.token ? JSON.parse(localStorage.user).picture : ""
     });
-    console.log(localStorage.token);
+    console.log(JSON.parse(localStorage.user).picture);
   },
   data() {
     return {

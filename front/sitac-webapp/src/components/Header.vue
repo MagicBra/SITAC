@@ -17,42 +17,14 @@
 </template>
 
 <script>
-import { ToastProgrammatic as Toast } from "buefy";
-
 export default {
   name: "Header",
-  mounted() {
-  window.addEventListener('foo-key-localstorage-changed', () => {
-    this.isToken = localStorage.token ? true : false;
-  });
-  console.log(localStorage.token);
-},
   data() {
     return {
-      isToken: localStorage.token ? true : false,
+      
     };
   },
   methods: {
-    connection() {
-      this.$router.push("/");
-    },
-    deconnection() {
-      localStorage.removeItem("token");
-
-      window.dispatchEvent(
-        new CustomEvent("foo-key-localstorage-changed", {
-          detail: {
-            storage: localStorage.token,
-          },
-        })
-      );
-
-      Toast.open({
-        message: "Vous avez été déconnecté",
-      });
-
-      this.$router.push("/");
-    },
   }
 };
 </script>

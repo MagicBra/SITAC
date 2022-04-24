@@ -29,7 +29,7 @@ import { ToastProgrammatic as Toast } from "buefy";
 import ApiHandlerService from "../services/ApiHandlerService";
 
 export default {
-    props: ["endpoint","columns","labelButtonEdit","labelButtonCreate", "customBody"],
+    props: ["endpoint","columns","labelButtonEdit","labelButtonCreate", "customBody", "forceEdit", "callback"],
   components: {},
   mounted() {
     this.loading = false;
@@ -40,7 +40,7 @@ export default {
       ApiHandlerService.getById(this.endpoint, this.id, {}, ({ data }) => {
         this.data = data;
 
-        this.readOnly = !(ApiHandlerService.isCurrentUserAdmin() || JSON.parse(localStorage.user).id == data.author.id);
+        this.readOnly = !this.forceEdit && (!(ApiHandlerService.isCurrentUserAdmin() || data.author ? (JSON.parse(localStorage.user).id == data.author.id) : false));
       });
     } else {
         this.readOnly = false;
@@ -73,6 +73,9 @@ export default {
         ApiHandlerService.put(this.endpoint, this.id, body, ({ data }) => {
           this.data = data;
           this.loading = false;
+
+          if(this.callback)
+            this.callback(data);
 
           Toast.open({
             message: "Mise à jour réussi !",
